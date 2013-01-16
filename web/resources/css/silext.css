@@ -1,0 +1,93 @@
+/* classe do container de login */
+.login-container {
+    /*padding: 19px 29px 29px;*/
+    margin: 150px auto 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 1px 1px 4px #888;
+        -moz-box-shadow: 1px 1px 4px #888;
+            box-shadow: 1px 1px 4px #BBB;
+}
+
+/* retira os estilos do cabeçalho */
+.login-container .x-panel-header-default{
+    background: none !important;
+    border-color: transparent !important;
+    -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+            box-shadow: none;
+    
+}
+
+/* fonte do cabeçalho */
+.login-container .x-panel-header-text{
+    font-size: 18px !important;
+    margin-left: 25px;
+    margin-bottom: 10px;
+    line-height: 20px;
+}
+
+/* remove a borda do topo do corpo do painel */
+.login-container .x-panel-body-default{
+    border-width: 0px;
+    margin-top: 10px;
+}
+
+/* remove o estilo do background da toolbar do painel */
+.login-container .x-toolbar-default {
+    background: none !important;
+    border-color: transparent !important;
+    border-width: 0px;
+}
+
+/* link de recuperação de senha */
+.login-container a {
+    color: #15C;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+/* link de recuperação de senha hover*/
+.login-container a:hover {
+    text-decoration: underline;
+}
+
+/* define a cor da borda dos campos de texto com focus */
+.x-field-default-form-focus{
+    border: solid 1px #4D90FE;
+}
+
+/* aumenta o tamanho da fonte dos campos de texto */
+.x-form-field{
+    font-size: 14px;
+}
+
+/* aumenta o espaçamento entre os itens de formulário na vertical */
+.x-form-item{
+    margin-bottom: 18px;
+}
+
+/* adiciona borda inferior na toolbar principal*/
+.login-viewport .x-docked-top{
+    border-bottom-width:  1px !important;
+    
+}
+
+/* adiciona epaçamento interno da toolbar principal da página de login*/
+.login-viewport .x-toolbar-default{
+    padding: 5px 50px;
+    height: 80px;
+}
+
+/* título da aplicação exibido na toolbar principal */
+.login-viewport h1{
+    font-size: 20px;
+    color: #555;
+}
+
+.x-toolbar-default a{
+    text-decoration: none;
+}

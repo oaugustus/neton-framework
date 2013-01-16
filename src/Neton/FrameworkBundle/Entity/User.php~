@@ -1,0 +1,63 @@
+<?php
+
+namespace Neton\FrameworkBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="Neton\FrameworkBundle\Repository\UserRepository")
+ */
+class User
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=200, nullable=true)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pass", type="string", length=200, nullable=true)
+     */
+    private $pass;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_logon", type="datetime", nullable=true)
+     */
+    private $lastLogon;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="enabled", type="string", length=1, nullable=true)
+     */
+    private $enabled;
+
+    /**
+     * @var \UserGroup
+     *
+     * @ORM\ManyToOne(targetEntity="UserGroup")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_group_id", referencedColumnName="id")
+     * })
+     */
+    private $userGroup;
+
+
+}

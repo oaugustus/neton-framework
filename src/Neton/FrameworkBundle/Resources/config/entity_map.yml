@@ -1,0 +1,10 @@
+# Define o bundle FrameworkBundle como pacote de entidades
+NetonFrameworkBundle:  
+  # Entidades pertencentes ao pacote FrameworkBundle
+  Entities:  
+    Acl: custom
+    Bundle: custom
+    Module: ~
+    User: custom
+    UserGroup: ~
+    Object: ~

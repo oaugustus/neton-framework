@@ -1,0 +1,52 @@
+<?php
+
+namespace Neton\FrameworkBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Acl
+ *
+ * @ORM\Table(name="acl")
+ * @ORM\Entity(repositoryClass="Neton\FrameworkBundle\Repository\AclRepository")
+ */
+class Acl
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="access", type="string", length=1, nullable=true)
+     */
+    private $access;
+
+    /**
+     * @var \UserGroup
+     *
+     * @ORM\ManyToOne(targetEntity="UserGroup")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_group_id", referencedColumnName="id")
+     * })
+     */
+    private $userGroup;
+
+    /**
+     * @var \Object
+     *
+     * @ORM\ManyToOne(targetEntity="Object")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="object_id", referencedColumnName="id")
+     * })
+     */
+    private $object;
+
+
+}

@@ -1,0 +1,56 @@
+<?php
+
+namespace Neton\FrameworkBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Object
+ *
+ * @ORM\Table(name="object")
+ * @ORM\Entity
+ */
+class Object
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=200, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="selector", type="string", length=200, nullable=true)
+     */
+    private $selector;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="none_action", type="string", length=1, nullable=true)
+     */
+    private $noneAction;
+
+    /**
+     * @var \Module
+     *
+     * @ORM\ManyToOne(targetEntity="Module")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id")
+     * })
+     */
+    private $module;
+
+
+}
