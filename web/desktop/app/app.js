@@ -1,48 +1,121 @@
+/**
+ * Aplicação principal do sistema.
+ */
 Ext.application({
-    name: APP.name,
+    name: 'App',
     appFolder: 'desktop/app',
 
+    // bibliotecas e plugins úteis
     requires: [
         'Neton.window.Flash',
         'Neton.button.Button'
     ],
-
+    
+    // controladores utilizados na aplicação
     controllers: [
-        'login.Main'
+        'ui.UiController',
+        'bundle.dashboard.DashboardController',
+        'bundle.setting.SettingController'
     ],
     
-    views: [
-        'login.LoginForm'
-    ],
-    
-    config: {
-        showConnectionBase: false,
-        connectionBaseDirectFn: Ext.emptyFn(),
-        connectionBaseField: '',        
-        usernameType: 'email',
-        appTitle: APP.title,
-        loginTitle: 'Login',
-        usernameField: 'email',
-        usernameLabel: 'Email',
-        passField: 'pass',
-        passLabel: 'Senha',
-        showForgotPass: false,
-        forgotPassText: 'Esqueci a senha',
-        forgotPassUrl: '/forgot',
-        accessText: 'Acessar',
+    // define as configurações do sistema
+    settings: {
         showRegisterButton: false,
-        registerText: 'Criar conta',
-        registerUrl: '/register',
-        failureMessages: {
-            400: 'Usuário ou senha inválidos!'
-        }
+        showKeepConnection: true,
+        showForgotPass: true,
+        sessionRefresh: 60000,
+        expirationTitle: 'SESSÃO EXPIRADA',        
+        expirationMsg: 'Sua sessão expirou e foi fechada. Efetue login novamente!',
+        sessionFaultTitle: 'ACESSO RESTRITO',
+        sessionFaultMsg: 'A página que você está tentando acessar é restrita a usuários registrados!'
     },
     
+    /**
+     * Ao acionar a aplicação.
+     */
     launch: function(){
-        var a = Ext.create('Neton.silext.login.Viewport',{
-            config: this.config
-        });
+        var me = this;
         
-        console.log(a.getAccessText());
+        Actions.NetonFramework_Security.isLogged({}, function(r){
+            if (typeof(r) == 'string'){
+                Ext.Msg.alert(me.settings.sessionFaultTitle, me.settings.sessionFaultMsg, function(){
+                    self.location = r;                
+                });
+            } else {
+                var a = Ext.create('Neton.framework.ui.Viewport', {
+                    listeners: {
+                        'render': me.registerTasks,
+                        scope: this
+                    }
+                });  
+                
+            }            
+        },me);
+        
+        me.addEvents(
+            'sessionchange' 
+        );
+    },
+    
+    /**
+     * Registra tarefas a serem executadas durante a execução do sistema.
+     */
+    registerTasks : function(){
+        var me = this;
+        
+        Ext.TaskManager.start({
+            run: this.updateSession,
+            scope: me,
+            interval: me.settings.sessionRefresh
+        });        
+    },
+    
+    /**
+     * Atualiza a referência da sessão aberta para o usuário na interface.
+     * 
+     * @session
+     */
+    updateSession : function(){
+        var me = this;
+        Actions.NetonFramework_Security.isLogged({}, function(r){
+            if (typeof(r) == 'string'){
+                Ext.Msg.alert(me.settings.expirationTitle, me.settings.expirationMsg, function(){
+                    self.location = r;                
+                });
+            } else {
+                
+                if (!me.isSameObject(r, me.session)){
+                    me.session = r;
+                    
+                    me.fireEvent('sessionchange',me.session);
+                }                
+            }        
+            
+        },me)
+    },
+    
+    
+    /**
+     * Verifica se é o mesmo objeto.
+     * 
+     * @param {Object} a
+     * @param {Object} b
+     */
+    isSameObject : function(a, b) {
+        
+        // se o objeto for indefinido retorna false
+        if (a == undefined || b == undefined){
+            return false;
+        }
+        
+        // confere cada propriedade 
+        for (var i in a) {
+            if (a.hasOwnProperty(i) && b.hasOwnProperty(i) && a[i] === b[i]) {
+                return true;
+            }
+        }
+        
+        return false;
     }
+
 });

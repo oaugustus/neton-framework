@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Module
  *
  * @ORM\Table(name="module")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Neton\FrameworkBundle\Repository\ModuleRepository")
  */
 class Module
 {
@@ -41,6 +41,41 @@ class Module
      * @ORM\Column(name="enabled", type="string", length=1, nullable=true)
      */
     private $enabled;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="icon_cls", type="string", length=50, nullable=true)
+     */
+    private $iconCls;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="xtype", type="string", length=60, nullable=true)
+     */
+    private $xtype;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="is_default", type="string", length=1, nullable=true)
+     */
+    private $isDefault;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="order_index", type="integer", nullable=true)
+     */
+    private $orderIndex;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="separator", type="string", length=1, nullable=true)
+     */
+    private $separator;
 
     /**
      * @var \Bundle
@@ -131,6 +166,121 @@ class Module
     public function getEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * Set iconCls
+     *
+     * @param string $iconCls
+     * @return Module
+     */
+    public function setIconCls($iconCls)
+    {
+        $this->iconCls = $iconCls;
+    
+        return $this;
+    }
+
+    /**
+     * Get iconCls
+     *
+     * @return string 
+     */
+    public function getIconCls()
+    {
+        return $this->iconCls;
+    }
+
+    /**
+     * Set xtype
+     *
+     * @param string $xtype
+     * @return Module
+     */
+    public function setXtype($xtype)
+    {
+        $this->xtype = $xtype;
+    
+        return $this;
+    }
+
+    /**
+     * Get xtype
+     *
+     * @return string 
+     */
+    public function getXtype()
+    {
+        return $this->xtype;
+    }
+
+    /**
+     * Set isDefault
+     *
+     * @param string $isDefault
+     * @return Module
+     */
+    public function setIsDefault($isDefault)
+    {
+        $this->isDefault = $isDefault;
+    
+        return $this;
+    }
+
+    /**
+     * Get isDefault
+     *
+     * @return string 
+     */
+    public function getIsDefault()
+    {
+        return $this->isDefault;
+    }
+
+    /**
+     * Set orderIndex
+     *
+     * @param integer $orderIndex
+     * @return Module
+     */
+    public function setOrderIndex($orderIndex)
+    {
+        $this->orderIndex = $orderIndex;
+    
+        return $this;
+    }
+
+    /**
+     * Get orderIndex
+     *
+     * @return integer 
+     */
+    public function getOrderIndex()
+    {
+        return $this->orderIndex;
+    }
+
+    /**
+     * Set separator
+     *
+     * @param string $separator
+     * @return Module
+     */
+    public function setSeparator($separator)
+    {
+        $this->separator = $separator;
+    
+        return $this;
+    }
+
+    /**
+     * Get separator
+     *
+     * @return string 
+     */
+    public function getSeparator()
+    {
+        return $this->separator;
     }
 
     /**

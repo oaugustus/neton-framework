@@ -394,6 +394,7 @@ Ext.define('Neton.framework.login.Viewport',{
         if (btn.up('form').getForm().isValid()){
             // cria a máscara de carregamento no botão
             btn.setLoading({
+                msg: '...',
                 width: btn.getWidth()-5
             });
             
@@ -461,7 +462,7 @@ Ext.define('Neton.framework.login.Viewport',{
         
         if (response.code == 200){
             // redireciona o usuário para a página de acesso restrito
-            //self.location = response.secureUrl;
+            self.location = response.secureUrl;
         }else {
             // exibe mensagem de erro
             Neton.Msg.flash({

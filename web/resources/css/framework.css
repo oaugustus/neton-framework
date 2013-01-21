@@ -88,6 +88,75 @@
     color: #555;
 }
 
+.app-toolbar h1{
+    font-size: 20px;
+    color: #555;
+}
+
+/* background da toolbar principal da aplicação */
+.app-toolbar{
+    zoom: 1; 
+    /*background-image: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/grid.png) !important; */
+    background: none !important;
+    background-image: url(http://subtlepatterns.com/patterns/furley_bg.png); 
+    background-position: initial initial; 
+    background-repeat: initial initial;
+}
+
+/* background da toolbar de bundles da aplicação */
+.bundle-toolbar{
+    zoom: 1; 
+    background: none !important;
+    /*background-image: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/grid.png) !important; */
+    background-image: url(http://subtlepatterns.com/patterns/furley_bg.png); 
+    background-position: initial initial; 
+    background-repeat: initial initial;
+}
+
+.bundle-toolbar .x-btn-inner{
+    color: #777;
+    font-size: 12px;
+}
+
+.bundle-toolbar .x-btn-pressed .x-btn-inner{
+    color: #333;
+}
+
 .x-toolbar-default a{
     text-decoration: none;
+}
+
+/* avatar do usuário na barra principal da aplicação */
+.user-avatar{
+    width: 48px !important;
+    height: 48px !important;
+    background-repeat: no-repeat;
+    /*border: solid 1px #ccc !important;*/
+    background-image: url(../img/avatar.png);
+}
+
+/* dados do usuário na barra principal da aplicação */
+.user-info{
+    font-size: 13px;
+    color: #333;
+    padding: 0 5px 0 5px;
+}
+
+.bundle h3{
+    font-size: 18px !important;
+    color: #777 !important;
+}
+
+.bundle .x-btn-inner{
+    font-size: 12px;
+}
+
+
+.bundle .x-toolbar-default .x-btn-inner{
+    color: #777;
+    font-size: 12px;
+}
+
+.bundle .x-toolbar-default .x-btn-pressed .x-btn-inner{
+    color: #333;
 }

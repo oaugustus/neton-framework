@@ -12,4 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class BundleRepository extends EntityRepository
 {
+    /**
+     * @var string
+     * Entidade de manipulação de bundles.
+     */
+    protected $entity = '\\Neton\\FrameworkBundle\\Entity\\Bundle';
+    
+    /**
+     * Retorna a lista dos bundles cadastrados no sistema.
+     * 
+     * @param array $params
+     */
+    public function getList($params)
+    {
+        $qb = $this->_em->createQueryBuilder()
+                ->select('b')
+                ->from($this->entity, 'b');
+        
+        $rs = $qb->getQuery()->getResult('FlatScalar');
+        
+        return $rs;
+    }
 }

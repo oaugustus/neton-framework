@@ -1,0 +1,85 @@
+/* Botão exit*/
+.exit-icon{
+    background-image: url("../img/sprite.png");
+    background-repeat: no-repeat;
+    background-position: -4px -4px !important;
+}
+
+/* Ícones dos bundles */
+
+/* Dashboard */
+.dashboard-icon{
+    background-image: url(../img/dashboard-icon.png) !important;
+    opacity: 0.4;
+}
+
+/* bundle ativo*/
+.x-btn-pressed .dashboard-icon{
+    opacity: 1;
+}
+
+/* Configurações*/
+.setting-icon{
+    background-image: url(../img/setting-icon.png) !important;
+    opacity: 0.4;
+}
+
+/* bundle ativo*/
+.x-btn-pressed .setting-icon{
+    opacity: 1;
+}
+
+/* Usuários*/
+.user-icon{
+    background-image: url(../img/user-icon.png) !important;
+    opacity: 0.4;
+}
+
+/* modulo ativo*/
+.x-btn-pressed .user-icon{
+    opacity: 1;
+}
+
+/* Grupos de usuários*/
+.usergroup-icon{
+    background-image: url(../img/usergroup-icon.png) !important;
+    opacity: 0.4;
+}
+
+/* modulo ativo*/
+.x-btn-pressed .usergroup-icon{
+    opacity: 1;
+}
+
+/* Bundles*/
+.bundle-icon{
+    background-image: url(../img/app-icon.png) !important;
+    opacity: 0.4;
+}
+
+/* modulo ativo*/
+.x-btn-pressed .bundle-icon{
+    opacity: 1;
+}
+
+/* Módulo*/
+.module-icon{
+    background-image: url(../img/module-icon.png) !important;
+    opacity: 0.4;
+}
+
+/* modulo ativo*/
+.x-btn-pressed .module-icon{
+    opacity: 1;
+}
+
+/* Objeto*/
+.object-icon{
+    background-image: url(../img/object-icon.png) !important;
+    opacity: 0.4;
+}
+
+/* modulo ativo*/
+.x-btn-pressed .object-icon{
+    opacity: 1;
+}

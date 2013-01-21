@@ -42,5 +42,26 @@ class Bundle
      */
     private $enabled;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="icon_cls", type="string", length=50, nullable=true)
+     */
+    private $iconCls;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="is_default", type="string", length=1, nullable=true)
+     */
+    private $isDefault;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="order_index", type="integer", nullable=true)
+     */
+    private $orderIndex;
+
 
 }

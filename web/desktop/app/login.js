@@ -1,22 +1,19 @@
+/**
+ * Aplicação de login do sistema.
+ */
 Ext.application({
     name: 'App',
     appFolder: 'desktop/app',
 
+    // bibliotecas e plugins úteis
     requires: [
         'Neton.window.Flash',
         'Neton.button.Button'
     ],
-
-    controllers: [
-        'login.Main'
-    ],
     
-    views: [
-        'login.LoginForm'
-    ],
-    
+    // define as configurações do sistema
     settings: {
-        showRegisterButton: true,
+        showRegisterButton: false,
         showKeepConnection: true,
         showForgotPass: true
     },

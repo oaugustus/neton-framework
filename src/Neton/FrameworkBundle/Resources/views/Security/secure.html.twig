@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+        {% if app.debug %}
+            <script type="text/javascript" src="desktop/bootstrap.js"></script>
+            <script type="text/javascript" src="desktop/app/app.js"></script>
+
+        {% else%}
+            <script type="text/javascript" src="desktop/app/app.js"></script>
+        {% endif %}            
+{% endblock %}
+

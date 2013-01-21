@@ -42,6 +42,27 @@ class Bundle
      */
     private $enabled;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="icon_cls", type="string", length=50, nullable=true)
+     */
+    private $iconCls;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="is_default", type="string", length=1, nullable=true)
+     */
+    private $isDefault;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="order_index", type="integer", nullable=true)
+     */
+    private $orderIndex;
+
 
 
     /**
@@ -121,5 +142,74 @@ class Bundle
     public function getEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * Set iconCls
+     *
+     * @param string $iconCls
+     * @return Bundle
+     */
+    public function setIconCls($iconCls)
+    {
+        $this->iconCls = $iconCls;
+    
+        return $this;
+    }
+
+    /**
+     * Get iconCls
+     *
+     * @return string 
+     */
+    public function getIconCls()
+    {
+        return $this->iconCls;
+    }
+
+    /**
+     * Set isDefault
+     *
+     * @param string $isDefault
+     * @return Bundle
+     */
+    public function setIsDefault($isDefault)
+    {
+        $this->isDefault = $isDefault;
+    
+        return $this;
+    }
+
+    /**
+     * Get isDefault
+     *
+     * @return string 
+     */
+    public function getIsDefault()
+    {
+        return $this->isDefault;
+    }
+
+    /**
+     * Set orderIndex
+     *
+     * @param integer $orderIndex
+     * @return Bundle
+     */
+    public function setOrderIndex($orderIndex)
+    {
+        $this->orderIndex = $orderIndex;
+    
+        return $this;
+    }
+
+    /**
+     * Get orderIndex
+     *
+     * @return integer 
+     */
+    public function getOrderIndex()
+    {
+        return $this->orderIndex;
     }
 }

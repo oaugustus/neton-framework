@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Module
  *
  * @ORM\Table(name="module")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Neton\FrameworkBundle\Repository\ModuleRepository")
  */
 class Module
 {
@@ -41,6 +41,41 @@ class Module
      * @ORM\Column(name="enabled", type="string", length=1, nullable=true)
      */
     private $enabled;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="icon_cls", type="string", length=50, nullable=true)
+     */
+    private $iconCls;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="xtype", type="string", length=60, nullable=true)
+     */
+    private $xtype;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="is_default", type="string", length=1, nullable=true)
+     */
+    private $isDefault;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="order_index", type="integer", nullable=true)
+     */
+    private $orderIndex;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="separator", type="string", length=1, nullable=true)
+     */
+    private $separator;
 
     /**
      * @var \Bundle
