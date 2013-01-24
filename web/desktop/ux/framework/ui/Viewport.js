@@ -16,6 +16,12 @@ Ext.define('Neton.framework.ui.Viewport',{
     ],
     
     /**
+     * @cfg {Boolean} moduleContainerType
+     * Tipo do container de módulos.
+     */    
+    moduleContainerType: 'tab',
+    
+    /**
      * @cfg {Boolean} showNotificationPanel
      * Se o painel de notificação será ou não exibido
      */    
@@ -48,11 +54,30 @@ Ext.define('Neton.framework.ui.Viewport',{
                     items: [
                         {
                             xtype: 'container',
+                            region: 'center',
+                            flex: 5,
+                            layout: {
+                                type: 'border',
+                                align: 'stretchmax'
+                            },
+                            items: [
+                                {
+                                    xtype: 'container',
+                                    region: 'north',
+                                    layout: 'card',
+                                    moduleContainerType: me.moduleContainerType,
+                                    itemId: 'bundleCt'
+                                },
+                                this.getModuleContainer()
+                            ]
+                        },
+                        /*{
+                            xtype: 'container',
                             itemId: 'bundleCt',
                             layout: 'card',
                             region: 'center',
                             flex: 5
-                        },
+                        },*/
                         this.getNotificationPanel()
                     ],
                     dockedItems: [
@@ -86,6 +111,33 @@ Ext.define('Neton.framework.ui.Viewport',{
                 flex: 1.2
             }
             
+        }
+    },
+    
+    /**
+     * Recupera o container de módulos.
+     * 
+     * @return {Object}
+     */
+    getModuleContainer : function(){
+        var me = this;
+        
+        if (me.moduleContainerType == 'panel'){
+            return {
+                xtype: 'container',
+                itemId: 'moduleCt',
+                layout: 'card',
+                style: 'border-top: solid 1px #ccc;',
+                region: 'center'
+            }
+            
+        } else {
+            return {
+                xtype: 'tabpanel',
+                border: false,
+                itemId: 'moduleCt',
+                region: 'center'
+            }            
         }
     }
 });

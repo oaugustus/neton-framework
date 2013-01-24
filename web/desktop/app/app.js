@@ -14,8 +14,17 @@ Ext.application({
     // controladores utilizados na aplicação
     controllers: [
         'ui.UiController',
+        
+        // bundle framework
+        'bundle.framework.FrameworkController',
+        'bundle.framework.setting.SettingController',
+        
+        // bundle dashboard
         'bundle.dashboard.DashboardController',
-        'bundle.setting.SettingController'
+        
+        // bundle de configurações
+        'bundle.setting.SettingController',
+        'bundle.setting.usergroup.UserGroupController'
     ],
     
     // define as configurações do sistema

@@ -160,3 +160,9 @@
 .bundle .x-toolbar-default .x-btn-pressed .x-btn-inner{
     color: #333;
 }
+
+.module .x-toolbar-default{
+    background-color: #fff !important;
+    background-image: none !important;
+    border-bottom: solid 1px #ccc !important;
+}

@@ -83,3 +83,14 @@
 .x-btn-pressed .object-icon{
     opacity: 1;
 }
+
+/* Framework */
+.framework-icon{
+    background-image: url(../img/framework-icon.png) !important;
+    opacity: 0.4;
+}
+
+/* modulo ativo*/
+.x-btn-pressed .framework-icon{
+    opacity: 1;
+}
