@@ -32,7 +32,17 @@ class SettingRepository extends EntityRepository
         
         $rs = $qb->getQuery()->getResult('FlatScalar');
         
-        return $rs;
+        $list = array();
+        
+        foreach ($rs as $setting){
+            if ($setting['type']){
+                eval ('$list[$setting["property"]] = ('.$setting['type'].')$setting["value"];');
+            }else 
+                $list[$setting['property']] = $setting['value'];
+            
+        }
+        
+        return $list;
     }
     
 }

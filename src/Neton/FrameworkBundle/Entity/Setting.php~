@@ -42,5 +42,19 @@ class Setting
      */
     private $orderIndex;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=45, nullable=true)
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="target", type="string", length=1, nullable=true)
+     */
+    private $target;
+
 
 }

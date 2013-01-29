@@ -94,3 +94,13 @@
 .x-btn-pressed .framework-icon{
     opacity: 1;
 }
+
+
+/* BOTÕES */
+.enable-icon{
+    background-image: url(../img/enable-icon.png) !important;
+}
+
+.disable-icon{
+    background-image: url(../img/disable-icon.png) !important;
+}

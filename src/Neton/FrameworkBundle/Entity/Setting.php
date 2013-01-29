@@ -42,6 +42,20 @@ class Setting
      */
     private $orderIndex;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=45, nullable=true)
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="target", type="string", length=1, nullable=true)
+     */
+    private $target;
+
 
 
     /**
@@ -121,5 +135,51 @@ class Setting
     public function getOrderIndex()
     {
         return $this->orderIndex;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return Setting
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set target
+     *
+     * @param string $target
+     * @return Setting
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+    
+        return $this;
+    }
+
+    /**
+     * Get target
+     *
+     * @return string 
+     */
+    public function getTarget()
+    {
+        return $this->target;
     }
 }

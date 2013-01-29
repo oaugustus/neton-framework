@@ -134,7 +134,20 @@ class SessionController extends Controller
             'total' => ($totals != null) ? $totals : count($result),
             'results' => $result
         );
-    }    
+    }   
+    
+    /**
+     * Retorna as configurações do framework.
+     * 
+     * @return array
+     */
+    protected function getFrameworkSettings()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $settings = $em->getRepository('NetonFrameworkBundle:Setting')->getList(array());
+        
+        return $settings;
+    }
     
     
 }

@@ -27,7 +27,8 @@ class BundleRepository extends EntityRepository
     {
         $qb = $this->_em->createQueryBuilder()
                 ->select('b')
-                ->from($this->entity, 'b');
+                ->from($this->entity, 'b')
+                ->orderBy('b.orderIndex','ASC');
         
         $rs = $qb->getQuery()->getResult('FlatScalar');
         

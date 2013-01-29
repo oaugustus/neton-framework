@@ -71,7 +71,7 @@ Ext.define('Neton.framework.ui.MainToolbar',{
         var me = this;
         
         // aplica as configurações definidas pela aplicação
-        Ext.applyIf(me, me.settings);
+        Ext.apply(me, me.settings);
         
         // cria os componentes básicos da toolbar
         Ext.applyIf(me,{

@@ -19,7 +19,7 @@ Ext.define('Neton.framework.ui.Viewport',{
      * @cfg {Boolean} moduleContainerType
      * Tipo do container de módulos.
      */    
-    moduleContainerType: 'tab',
+    moduleContainerType: 'panel',
     
     /**
      * @cfg {Boolean} showNotificationPanel
@@ -42,6 +42,8 @@ Ext.define('Neton.framework.ui.Viewport',{
      */
     initComponent : function(){
         var me = this;
+        
+        Ext.apply(me, me.settings);
         
         Ext.applyIf(me, {
             items: [
@@ -83,10 +85,12 @@ Ext.define('Neton.framework.ui.Viewport',{
                     dockedItems: [
                         {
                             xtype: 'netuimaintoolbar',
+                            settings: me.settings,
                             dock: 'top'
                         },
                         {
                             xtype: 'netuibundletoolbar',
+                            settings: me.settings,
                             dock: 'left'
                         }
                     ]

@@ -23,4 +23,45 @@ class BundleController extends SessionController
                
         return $this->createStoreResult($bundles);
     }
+    
+    /** 
+     * Reordena os bundles da aplicação.
+     * 
+     * @remote
+     * @param array $params 
+     */
+    public function reorderAction($params)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        foreach ($params as $item){
+            $bundle = $em->getRepository('NetonFrameworkBundle:Bundle')->find($item['id']);
+            $bundle->setOrderIndex($item['order']);            
+        }
+        
+        $em->flush();
+        
+        return true;
+    }
+    
+    /** 
+     * Habilita/Desabilita os bundles da aplicação.
+     * 
+     * @remote
+     * @param array $params 
+     */
+    public function setEnabledAction($params)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        foreach ($params['ids'] as $id){
+            $bundle = $em->getRepository('NetonFrameworkBundle:Bundle')->find($id);
+            $bundle->setEnabled($params['enabled']);            
+        }
+        
+        $em->flush();
+        
+        return true;
+    }
+    
 }

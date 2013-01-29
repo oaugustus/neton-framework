@@ -51,6 +51,7 @@ Ext.define('App.view.bundle.framework.setting.SettingModule',{
         return  {
            xtype: 'propertygrid',
            flex: 2,
+           cls: 'neton-grid',
            sortableColumns: false,
            listeners : {
                 beforerender : function(grid) {
@@ -61,11 +62,11 @@ Ext.define('App.view.bundle.framework.setting.SettingModule',{
                 }
            },
            nameColumnWidth: 350,
-           sourceConfig: this.getSourceConfig(),                   
+           sourceConfig: this.getSourceConfig()/*,                   
            source: {
                "moduleContainerType": 'tabpanel',
                'appName': 'NetonFramework Application'
-           }
+           }*/
        }
 
     },
@@ -78,8 +79,19 @@ Ext.define('App.view.bundle.framework.setting.SettingModule',{
     getSourceConfig : function(){
         return {
             showLogo: this.getShowLogoConfig(),
+            loginTitle: this.getLoginTitleConfig(),
+            showForgotPass: this.getShowForgotPassConfig(),
+            showKeepConnection: this.getShowKeepConnectionConfig(),
+            showRegisterButton: this.getShowRegisterButtonConfig(),
+            keepConnectionText: this.getKeepConnectionTextConfig(),
+            forgotPassText: this.getForgotPassTextConfig(),
+            accessText: this.getAccessTextConfig(),
+            logoWidth: this.getLogoWidthConfig(),
+            logoHeight: this.getLogoHeightConfig(),
+            showAvatar: this.getShowAvatarConfig(),
             moduleContainerType: this.getModuleContainerTypeConfig(),
-            appName: this.getAppNameConfig()
+            appName: this.getAppNameConfig(),
+            exitText: this.getExitTextConfig()
         }
     },
     
@@ -91,10 +103,125 @@ Ext.define('App.view.bundle.framework.setting.SettingModule',{
     getShowLogoConfig : function(){
         return {
             displayName: 'Geral - Mostrar logomarca',
-            type: 'boolean'
+            type: 'boolean',
+            renderer: function(v){
+                if (v == 0){
+                    return false;
+                } 
+                    return v;
+            }
         }
     },
-        
+    
+    /**
+     * Retorna a configuração da propriedade logoWidth.
+     * 
+     * @return {Object}
+     */
+    getLogoWidthConfig : function(){
+        return {
+            displayName: 'Geral - Largura da logomarca',
+            type: 'integer'
+        }
+    },    
+    
+    /**
+     * Retorna a configuração da propriedade logoWidth.
+     * 
+     * @return {Object}
+     */
+    getLogoHeightConfig : function(){
+        return {
+            displayName: 'Geral - Altura da logomarca',
+            type: 'integer'
+        }
+    },        
+    
+    /**
+     * Retorna a configuração da propriedade loginTitle.
+     * 
+     * @return {Object}
+     */
+    getLoginTitleConfig : function(){
+        return {
+            displayName: 'Login - Título da janela de Login',
+            type: 'string'
+        }
+    },            
+    
+    /**
+     * Retorna a configuração da propriedade showForgotPass.
+     * 
+     * @return {Object}
+     */
+    getShowForgotPassConfig : function(){
+        return {
+            displayName: 'Login - Mostrar link de recuperação de senha',
+            type: 'boolean'
+        }
+    },                
+
+    /**
+     * Retorna a configuração da propriedade forgotPassText.
+     * 
+     * @return {Object}
+     */
+    getForgotPassTextConfig : function(){
+        return {
+            displayName: 'Login - Texto do link de recuperação de senha',
+            type: 'string'
+        }
+    },                
+
+    
+    /**
+     * Retorna a configuração da propriedade forgotPassText.
+     * 
+     * @return {Object}
+     */
+    getShowKeepConnectionConfig : function(){
+        return {
+            displayName: 'Login - Mostrar opção de gravar sessão do usuário',
+            type: 'boolean'
+        }
+    },                
+
+    /**
+     * Retorna a configuração da propriedade forgotPassText.
+     * 
+     * @return {Object}
+     */
+    getKeepConnectionTextConfig : function(){
+        return {
+            displayName: 'Login - Texto da opção de gravar sessão do usuário',
+            type: 'string'
+        }
+    },                
+
+    /**
+     * Retorna a configuração da propriedade accessText.
+     * 
+     * @return {Object}
+     */
+    getAccessTextConfig : function(){
+        return {
+            displayName: 'Login - Texto do botão de login',
+            type: 'string'
+        }
+    },   
+    
+    /**
+     * Retorna a configuração da propriedade forgotPassText.
+     * 
+     * @return {Object}
+     */
+    getShowRegisterButtonConfig : function(){
+        return {
+            displayName: 'Login - Mostrar botão de registro',
+            type: 'boolean'
+        }
+    },                    
+
     /**
      * Retorna a configuração da propriedade nome da aplicação.
      * 
@@ -109,6 +236,31 @@ Ext.define('App.view.bundle.framework.setting.SettingModule',{
             })
         }
     },
+    
+    /**
+     * Retorna a configuração da propriedade showAvatar.
+     * 
+     * @return {Object}
+     */
+    getShowAvatarConfig : function(){
+        return {
+            displayName: 'UI - Mostrar avatar do usuário',
+            type: 'boolean'
+        }
+    },                
+    
+    /**
+     * Retorna a configuração da propriedade loginTitle.
+     * 
+     * @return {Object}
+     */
+    getExitTextConfig : function(){
+        return {
+            displayName: 'UI - Texto do botão de logout',
+            type: 'string'
+        }
+    },            
+    
     
     /**
      * Retorna a configuração da propriedade moduleContainerType.
@@ -144,6 +296,7 @@ Ext.define('App.view.bundle.framework.setting.SettingModule',{
         return [
            {
                xtype: 'container',
+               margin: '0 0 0 3',
                items: [
                    {
                        xtype: 'button',

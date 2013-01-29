@@ -18,6 +18,7 @@ Ext.application({
         // bundle framework
         'bundle.framework.FrameworkController',
         'bundle.framework.setting.SettingController',
+        'bundle.framework.bundle.BundleController',
         
         // bundle dashboard
         'bundle.dashboard.DashboardController',
@@ -45,18 +46,27 @@ Ext.application({
     launch: function(){
         var me = this;
         
+        // verifica se o usuário está logado
         Actions.NetonFramework_Security.isLogged({}, function(r){
+            // se não existe sessão aberta para o usuário
             if (typeof(r) == 'string'){
+                // exibe mensagem de erro
                 Ext.Msg.alert(me.settings.sessionFaultTitle, me.settings.sessionFaultMsg, function(){
                     self.location = r;                
                 });
-            } else {
-                var a = Ext.create('Neton.framework.ui.Viewport', {
-                    listeners: {
-                        'render': me.registerTasks,
-                        scope: this
-                    }
-                });  
+            } else { // se existe uma sessão aberta para o usuário
+                // cria a interface do sistema
+                Actions.NetonFramework_Setting.list({}, function(r){   
+                    Ext.apply(me.settings, r);
+                    
+                    var a = Ext.create('Neton.framework.ui.Viewport', {
+                        settings: me.settings,
+                        listeners: {
+                            'render': me.registerTasks,
+                            scope: me
+                        }
+                    });  
+                });
                 
             }            
         },me);

@@ -20,13 +20,13 @@ Ext.define('Neton.framework.login.Viewport',{
      * @cfg {Int} logoWidth
      * Largura da logo.
      */    
-    logoWidth: 64,
+    logoWidth: 50,
     
     /**
      * @cfg {Int} logoHeight
      * Altura da logo.
      */    
-    logoHeight: 64,    
+    logoHeight: 50,    
     
     /**
      * @cfg {Boolean} showConnectionBase

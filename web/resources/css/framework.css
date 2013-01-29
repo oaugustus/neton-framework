@@ -79,7 +79,7 @@
 /* adiciona epaçamento interno da toolbar principal da página de login*/
 .login-viewport .x-toolbar-default{
     padding: 5px 50px;
-    height: 80px;
+    height: 70px;
 }
 
 /* título da aplicação exibido na toolbar principal */
@@ -165,4 +165,16 @@
     background-color: #fff !important;
     background-image: none !important;
     border-bottom: solid 1px #ccc !important;
+}
+
+.neton-grid .x-column-header{
+    font-size: 12px;
+}
+
+.neton-grid .x-grid-row .x-grid-cell{
+    font-size: 12px;
+}
+
+.neton-grid .x-grid-cell-inner{
+    padding-top: 5px;
 }

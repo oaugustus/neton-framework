@@ -19,7 +19,9 @@ class SecurityController extends SessionController
      */
     public function loginAction()
     {        
-        return array('name' => 'Otávio');
+        $settings = $this->getFrameworkSettings();
+        
+        return array('title' => $settings['appName']);
     }
         
     /**
@@ -30,7 +32,9 @@ class SecurityController extends SessionController
      */
     public function secureAction()
     {
-        return array('session' => $this->getSession());
+        $settings = $this->getFrameworkSettings();
+        
+        return array('session' => $this->getSession(), 'title' => $settings['appName']);
     }
     
     /**

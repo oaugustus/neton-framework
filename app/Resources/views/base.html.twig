@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}{{app_name}}{% endblock %}</title>
+        <title>{% block title %}{{title}}{% endblock %}</title>
         
         <link rel="stylesheet" type="text/css" href="{{extjs_path}}/resources/css/ext-all-gray.css">
         <link rel="stylesheet" href="{{ app.request.basepath }}/resources/css/flash.css">
@@ -20,14 +20,16 @@
             <script>
                 var APP = {
                     EXTJSPATH : '{{extjs_path}}',
-                    title: '{{app_name}}',
+                    title: '{{title}}',
                     webpath: './'
                 }
+                
             </script>
         {% else%}
             <script type="text/javascript" src="{{extjs_path}}/ext-all.js"></script>
         {% endif %}        
         <script type="text/javascript" src="{{ url('api')}}"></script>
+        <script type="text/javascript" src="{{app.request.basepath}}/desktop/locale/br.js"></script>
         
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>

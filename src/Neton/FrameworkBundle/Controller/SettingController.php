@@ -20,13 +20,8 @@ class SettingController extends SessionController
         $em = $this->getDoctrine()->getManager();
         
         $settings = $em->getRepository('NetonFrameworkBundle:Setting')->getList($params);
-        $list = array();
-        
-        foreach ($settings as $setting){
-            $list[$setting['property']] = $setting['value'];
-        }
                
-        return $list;
+        return $settings;
     }
     
     /**
@@ -51,9 +46,9 @@ class SettingController extends SessionController
             if ($entity){
                 
                 if ($value === true)
-                    $value = 'true';
+                    $value = 1;
                 elseif ($value === false)
-                    $value = 'false';
+                    $value = 0;
                     
                 // atualiza o seu valor
                 $entity->setValue($value);

@@ -1,0 +1,25 @@
+<?php
+
+namespace Neton\FrameworkBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Teste
+ *
+ * @ORM\Table(name="teste")
+ * @ORM\Entity(repositoryClass="Neton\FrameworkBundle\Repository\TesteRepository")
+ */
+class Teste
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idteste", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idteste;
+
+
+}
