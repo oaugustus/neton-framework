@@ -104,3 +104,7 @@
 .disable-icon{
     background-image: url(../img/disable-icon.png) !important;
 }
+
+.delete-icon{
+    background-image: url(../img/delete-icon.png) !important;
+}

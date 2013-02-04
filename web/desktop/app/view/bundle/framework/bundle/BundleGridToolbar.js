@@ -6,9 +6,9 @@
  * @alias   bundletoolbar
  * @author  Otávio Fernandes <otavio@netonsolucoes.com.br>
  */
-Ext.define('App.view.bundle.framework.bundle.BundleToolbar',{
+Ext.define('App.view.bundle.framework.bundle.BundleGridToolbar',{
     extend: 'Ext.toolbar.Toolbar',
-    alias: 'widget.bundletoolbar',
+    alias: 'widget.bundlegridtoolbar',
     
     padding: 5,
     
@@ -27,7 +27,7 @@ Ext.define('App.view.bundle.framework.bundle.BundleToolbar',{
                             xtype: 'button',
                             itemId: 'btnNew',
                             text: 'Nova aplicação',
-                            baseCls: 'red-btn',
+                            baseCls: 'red-btn',                            
                             scale: 'large'
                         },
                         {
@@ -35,6 +35,7 @@ Ext.define('App.view.bundle.framework.bundle.BundleToolbar',{
                             scale: 'large',
                             itemId: 'btnEnable',
                             margin: '0 0 0 20',
+                            showWith: '1+',
                             hidden: true,
                             tooltip: 'Habilitar',
                             iconCls: 'enable-icon'
@@ -44,10 +45,22 @@ Ext.define('App.view.bundle.framework.bundle.BundleToolbar',{
                             scale: 'large',
                             margin: '0 0 0 5',
                             hidden: true,
+                            showWith: '1+',
                             itemId: 'btnDisable',
                             tooltip: 'Desabilitar',
                             iconCls: 'disable-icon'
+                        },
+                        {
+                            xtype: 'button',
+                            scale: 'large',
+                            margin: '0 0 0 20',
+                            hidden: true,
+                            showWith: '1+',
+                            itemId: 'btnDelete',
+                            tooltip: 'Excluir',
+                            iconCls: 'delete-icon'
                         }                        
+                        
                     ]
                 }
             ]

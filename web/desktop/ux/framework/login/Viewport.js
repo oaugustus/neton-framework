@@ -329,6 +329,7 @@ Ext.define('Neton.framework.login.Viewport',{
                 tabIndex: 1,
                 enableKeyEvents: true,
                 name: me.usernameField,
+                margin: '0 0 10 0',
                 fieldLabel: me.usernameLabel,
                 labelAlign: 'top',
                 anchor: '100%'

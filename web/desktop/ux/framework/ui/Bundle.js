@@ -21,19 +21,18 @@ Ext.define('Neton.framework.ui.Bundle', {
         var me = this;
         
         Ext.applyIf(me,{
+            // recupera os itens do bundle (botões do menu de módulos do bundle)
             items: me.getModules()
         })
         
-        me.callParent(arguments);
-        
-        //me.on('render', this.addModules, this);
+        me.callParent(arguments);        
     },
     
     /**
      * Retorna o painel que contém os módulos do sistema.
      * 
      * @return {Ext.panel.Panel}
-     */
+     *
     getModuleContainer : function(){
         var me = this;
         
@@ -54,13 +53,13 @@ Ext.define('Neton.framework.ui.Bundle', {
                 itemId: 'moduleCt'
             }        
         }
-    },
+    },*/
     
     /**
      * Adiciona os módulos ao card layout do bundle.
      * 
      * @param {Neton.framework.ui.Bundle} bundle
-     */
+     *
     addModules : function(){
         var module, bundle = this, moduleCt = bundle.up('container').up('container').down('#moduleCt');
                 
@@ -75,37 +74,26 @@ Ext.define('Neton.framework.ui.Bundle', {
 
         }
         
-    },
-    
-    /**
-     * Recupera o objeto de definição do módulo.
-     * 
-     * @param {Object} module
-     * @return {Object}
-     */
-    getModuleObject : function(module){
-        var me = this;
-                
-    },
-    
+    },*/
+        
     /**
      * Recupera os módulos que fazem parte do bundle.
      */
     getModules : function(){
-        var me = this, module, btn, modules = [
-            {
-                xtype: 'container',
-                padding: 10,
-                html: '<h3>' + me.title + '</h3>'
-            },
-            //'->','-'
-            
-        ];
+        var me = this, module, btn, 
+            modules = [
+                { // adiciona à barra de módulos do bundle o título do bundle
+                    xtype: 'container',
+                    padding: 10,
+                    html: '<h3>' + me.title + '</h3>'
+                },            
+            ];
         
+        // para cada módulo do bundle
         for (var name in me.modules){
             module = me.modules[name];
 
-            btn = {
+            btn = { // cria a definição do botão do módulo
                 text: module.title,
                 iconCls: module.iconCls,
                 scale: 'large',
@@ -120,6 +108,7 @@ Ext.define('Neton.framework.ui.Bundle', {
                 pressed: module.isDefault
             }
             
+            // adiciona o botão do módulo à lista dos módulos do bundle
             modules.push(btn);  
                  
                              
@@ -128,6 +117,7 @@ Ext.define('Neton.framework.ui.Bundle', {
             }
         }                
         
+        // retorna os módulos do bundle
         return modules;
     }
 })

@@ -11,8 +11,10 @@ Ext.define('App.view.bundle.framework.bundle.BundleModule',{
    alias: 'widget.bundlemodule',
    
    requires: [
-       'App.view.bundle.framework.bundle.BundleToolbar',
-       'App.view.bundle.framework.bundle.BundleGrid'
+       'App.view.bundle.framework.bundle.BundleGridToolbar',
+       'App.view.bundle.framework.bundle.BundleGrid',
+       'App.view.bundle.framework.bundle.BundleFormToolbar',
+       'App.view.bundle.framework.bundle.BundleForm',
    ],
    
    // configurações internas
@@ -21,6 +23,9 @@ Ext.define('App.view.bundle.framework.bundle.BundleModule',{
    cls: 'module',
    style: 'background-color: #fff;',
    layout: 'card',
+   layoutConfig: {
+       animate: true
+   },
    
    /**
     * Inicializa o componente.
@@ -35,18 +40,37 @@ Ext.define('App.view.bundle.framework.bundle.BundleModule',{
                    border: false,
                    bodyBorder: false,
                    layout: 'fit',
+                   itemId: 'gridpanel',
                    bodyPadding: 5,
                    // toolbar do grid
                    tbar: {
-                       xtype: 'bundletoolbar'
+                       xtype: 'bundlegridtoolbar'
                    },                   
                    items: [
-                       // grid de configurações
+                       // grid de bundles
                        {
                            xtype: 'bundlegrid'
                        }
                    ]
-               }
+               },
+               {
+                   xtype: 'panel',
+                   border: false,
+                   bodyBorder: false,
+                   layout: 'fit',
+                   itemId: 'formpanel',
+                   bodyPadding: 5,
+                   // toolbar do form
+                   tbar: {
+                       xtype: 'bundleformtoolbar'
+                   },                   
+                   items: [
+                       // formulário de edição
+                       {
+                           xtype: 'bundleform'
+                       }
+                   ]
+               }               
            ]
         });
         

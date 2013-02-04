@@ -26,19 +26,29 @@ Ext.define('App.controller.ui.UiController',{
             
             // barra superior de módulos
             'netuibasebundle button' : {
+                // ao clicar em um módulo
                 'click' : function(btn){
+                    // ativa o módulo acionado
                     btn.up('netuibasebundle').activeModule = btn;
                     this.activateModule(btn);
                 }
             },
-            
+                        
             'netuibasebundle' : {
+                // ao renderizar um bundle descobre qual módulo é o default
                 'render' : function(bundle){
+                    // define o módulo default como o módulo ativo
                     bundle.activeModule = bundle.down('button[isDefault=true]');
                 },
-                'activate' : function(bundle){
-                   this.getBundleToolbar().down('button[bundle="'+bundle.itemId+'"]').toggle(true);
-                   this.activateModule(bundle.activeModule);
+                // ao ativar um bundle
+                'activate' : function(bundle){                    
+                    // aciona o botão do bundle no menu de bundles                   
+                    try{
+                        this.getBundleToolbar().down('button[bundle="'+bundle.itemId+'"]').toggle(true);
+                    }catch(e){}
+                                        
+                    // ativa o módulo ativo do bundle selecionado
+                    this.activateModule(bundle.activeModule);
                 }
             },
             
@@ -72,19 +82,27 @@ Ext.define('App.controller.ui.UiController',{
     activateModule : function(moduleBtn){
         var me = this, moduleCt = me.getModuleCt();
         
+        // se o botão pressionado está vinculado a um bundle
         if (moduleBtn.bundle){            
             try{
+                // se o container de módulos ainda não tem o módulo acionado
                 if (!moduleCt.down('#'+moduleBtn.module)){
+                    
+                    // adiciona o módulo ao container de módulos
                     me.addModule(moduleBtn);                                  
                 }
 
+                // se o tipo do container de módulos for container
                 if (moduleCt.xtype == 'container'){
+                    // ativa o módulo do layout card
                     moduleCt.getLayout().setActiveItem(moduleBtn.module);
                 } else {
+                    // ativa o módulo do tabpanel
                     moduleCt.setActiveTab(moduleBtn.module);
                 }
                 
             }catch(e){
+                // se ocorrer alguma falha, registra o erro ocasionado
                 console.error('O módulo '+ moduleBtn.module + ' não foi encontrado!');
             }
         }
@@ -99,13 +117,17 @@ Ext.define('App.controller.ui.UiController',{
         var me = this, moduleContainerType = 'panel',
             module = btn.moduleObj;
         
+        // recupera o tipo de container de módulos
         moduleContainerType = btn.up('netuiport').moduleContainerType;
                                 
+        // se for do tipo painel
         if (moduleContainerType == 'panel'){
+            // adiciona o módulo ao container com layout card
             me.getModuleCt().add({
                 xtype: module.name,
                 module: module,
                 listeners: {
+                    // registra evento ao ativar o módulo para pressionar o bundle em questão
                     'activate' : function(){
                         this.activateBundle(btn.bundle.itemId);
                     },
@@ -114,6 +136,7 @@ Ext.define('App.controller.ui.UiController',{
                 itemId: module.name
             });            
         }else {
+            // adiciona o módulo ao container do tipo tabpanel
             me.getModuleCt().add({
                 xtype: module.name,
                 title: module.title,
@@ -154,6 +177,7 @@ Ext.define('App.controller.ui.UiController',{
     loadModules : function(){
         var me = this;        
         
+        // carrega os módulos que o usuário tem acesso
         Actions.NetonFramework_Module.loadModules({}, function(list){
             var tb = me.getBundleToolbar(), bundle, items = [], 
                 bundleCt = me.getBundleCt();
@@ -162,10 +186,12 @@ Ext.define('App.controller.ui.UiController',{
                 
                 bundle = list[bundleName];
                                 
+                // adiciona à lista de itens a definição do objeto do botão do bundle
                 items.push(me.getBundleButton(bundle));
 
 
                 try{
+                    // adiciona a toolbar de cada bundle ao container de bundles
                     bundleCt.add({
                         xtype: bundle.name,
                         itemId: bundle.name,
@@ -182,6 +208,7 @@ Ext.define('App.controller.ui.UiController',{
                 }
             }            
             
+            // adiciona o botão do bundle à toolbar de bundles
             tb.add(items);
         })
     },

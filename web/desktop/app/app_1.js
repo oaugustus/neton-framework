@@ -13,14 +13,17 @@ Ext.application({
     
     // controladores utilizados na aplicação
     controllers: [ 
-        /*<CONTROLLERS>*/        
-        'ui.UiController'
-        ,'bundle.dashboard.DashboardController'
-        ,'bundle.framework.FrameworkController'
-        ,'bundle.framework.bundle.BundleController'
-        ,'bundle.framework.setting.SettingController'
-        ,'bundle.setting.SettingController'
-        ,'bundle.setting.usergroup.UserGroupController'
+        /*<CONTROLLERS>*/
+        'ui.UiController',
+        
+        'bundle.framework.FrameworkController',
+        'bundle.framework.setting.SettingController',
+        'bundle.framework.bundle.BundleController',
+        
+        'bundle.dashboard.DashboardController',
+        
+        'bundle.setting.SettingController',
+        'bundle.setting.usergroup.UserGroupController'
         /*</CONTROLLERS>*/
     ],
     
@@ -91,9 +94,7 @@ Ext.application({
             run: this.updateSession,
             scope: me,
             interval: me.settings.sessionRefresh
-        });    
-        
-        this.registerKeyMap();
+        });        
     },
     
     /**
@@ -142,60 +143,6 @@ Ext.application({
         }
         
         return false;
-    },
-    
-    /**
-     * Seta o controlador do bundle ativo.
-     * 
-     * @param {Object} module
-     */
-    setActiveModule : function(module){
-        this.activeModule = module;
-    },
-    
-    /**
-     * Registra o mapa de teclas para os atalhos de teclado.
-     * 
-     * @param {Ext.form.Panel} form
-     */
-    registerKeyMap : function(form){
-        var save, esc, createNew;
-        
-        save = new Ext.util.KeyMap(Ext.getBody(), [{
-           key: Ext.EventObject.S,
-           ctrl: true,
-           defaultEventAction: 'preventDefault',
-           scope: this,
-           fn: function(){
-               try{
-                   this.activeModule.onSavePress();
-               } catch(e){}
-           }
-        }]);                               
-    
-        esc = new Ext.util.KeyMap(Ext.getBody(), [{
-           key: Ext.EventObject.ESC,
-           defaultEventAction: 'preventDefault',
-           scope: this,
-           fn: function(){
-               try{
-                   this.activeModule.onEscPress();
-               } catch(e){}               
-           }
-        }]);                                   
-    
-        createNew = new Ext.util.KeyMap(Ext.getBody(), [{
-           key: Ext.EventObject.C,
-           ctrl: true,
-           defaultEventAction: 'preventDefault',
-           scope: this,
-           fn: function(){
-               try{
-                   this.activeModule.onNewPress();
-               } catch(e){}               
-           }
-        }]);                                   
-    
-    }    
+    }
 
 });

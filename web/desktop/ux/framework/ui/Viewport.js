@@ -13,6 +13,7 @@ Ext.define('Neton.framework.ui.Viewport',{
     requires: [
         'Neton.framework.ui.MainToolbar',
         'Neton.framework.ui.BundleToolbar',
+        'Neton.framework.ui.HelpCmdToolbar',
     ],
     
     /**
@@ -52,11 +53,13 @@ Ext.define('Neton.framework.ui.Viewport',{
                     layout: {
                         type: 'border'
                     },
-                    border: false,
+                    //border: false,
+                    bodyPadding: 3,
                     items: [
                         {
                             xtype: 'container',
                             region: 'center',
+                            style: 'border: solid 1px #ccc;',
                             flex: 5,
                             layout: {
                                 type: 'border',
@@ -73,13 +76,6 @@ Ext.define('Neton.framework.ui.Viewport',{
                                 this.getModuleContainer()
                             ]
                         },
-                        /*{
-                            xtype: 'container',
-                            itemId: 'bundleCt',
-                            layout: 'card',
-                            region: 'center',
-                            flex: 5
-                        },*/
                         this.getNotificationPanel()
                     ],
                     dockedItems: [

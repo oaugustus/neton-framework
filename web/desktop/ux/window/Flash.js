@@ -91,10 +91,21 @@ Ext.define('Neton.window.Flash',{
            if (me.autoHide){
                me.autoClose.delay(me.autoHideSleep*1000);
            }
-           
+
+            var esc = new Ext.util.KeyMap(Ext.getBody(), [{
+               key: Ext.EventObject.ESC,
+               defaultEventAction: 'preventDefault',
+               scope: this,
+               fn: function(){
+                   me.closeFlash();
+               }
+            }]);                               
+
            if (me.onShow)
                me.onShow();
        },this);
+       
+       
        
        // auto hide task
        if (me.autoHide){

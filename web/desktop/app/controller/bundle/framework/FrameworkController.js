@@ -12,4 +12,3 @@ Ext.define('App.controller.bundle.framework.FrameworkController',{
         'bundle.framework.FrameworkBundle'
     ]
 });
-
