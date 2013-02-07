@@ -1,14 +1,14 @@
 /**
- * Painel do formulário de edição de bundles
+ * Painel do formulário de edição de módulos
  * 
- * @class   App.view.bundle.framework.bundle.BundleForm
+ * @class   App.view.bundle.framework.module.ModuleForm
  * @extends Ext.grid.Panel
- * @alias   bundleform
+ * @alias   moduleform
  * @author  Otávio Fernandes <otavio@netonsolucoes.com.br>
  */
-Ext.define('App.view.bundle.framework.bundle.BundleForm',{
+Ext.define('App.view.bundle.framework.module.ModuleForm',{
     extend: 'Ext.form.Panel',
-    alias: 'widget.bundleform',
+    alias: 'widget.moduleform',
     
     bodyPadding: 5,
     autoScroll: true,
@@ -17,8 +17,7 @@ Ext.define('App.view.bundle.framework.bundle.BundleForm',{
      * Inicializa o componente.
      */
     initComponent : function(){
-        var me = this,
-            required = '<span style="color:red;font-weight:bold" data-qtip="Obrigatório">*</span>';
+        var me = this;
         
         Ext.applyIf(me, {
             bbar: {
@@ -34,13 +33,27 @@ Ext.define('App.view.bundle.framework.bundle.BundleForm',{
                     cls: 'n-field-ct',
                     items: [
                         {
+                            xtype: 'combo',
+                            labelAlign: 'top',
+                            width: 400,
+                            msgTarget: 'side',
+                            allowBlank: false,
+                            name: 'title',
+                            fieldLabel: '<b>Aplicação</b>'
+                        }                        
+                    ]
+                },                
+                {
+                    xtype: 'container',
+                    cls: 'n-field-ct',
+                    items: [
+                        {
                             xtype: 'textfield',
                             labelAlign: 'top',
                             width: 400,
                             msgTarget: 'side',
                             allowBlank: false,
                             name: 'title',
-                            afterLabelTextTpl: required,
                             fieldLabel: '<b>Nome</b>'
                         }                        
                     ]
@@ -56,7 +69,6 @@ Ext.define('App.view.bundle.framework.bundle.BundleForm',{
                             msgTarget: 'side',
                             name: 'name',
                             allowBlank: false,
-                            afterLabelTextTpl: required,
                             fieldLabel: '<b>Classe</b> (xtype ExtJS)'
                         }                        
                     ]
@@ -72,7 +84,6 @@ Ext.define('App.view.bundle.framework.bundle.BundleForm',{
                             msgTarget: 'side',
                             name: 'iconCls',
                             allowBlank: false,
-                            afterLabelTextTpl: required,
                             fieldLabel: '<b>Ícone</b> (classe CSS)'
                         }                        
                     ]

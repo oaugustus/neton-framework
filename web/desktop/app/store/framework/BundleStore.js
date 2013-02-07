@@ -1,5 +1,5 @@
 /**
- * Datastore de bundles.
+ * Datastore de módulos.
  * 
  * @class   Proposital.store.BundleStore
  * @extends Ext.data.Store
@@ -7,5 +7,6 @@
  */
 Ext.define('App.store.framework.BundleStore', {
     extend: 'Ext.data.Store',
-    model: 'App.model.framework.BundleModel'
+    model: 'App.model.framework.BundleModel',
+    remoteSort: true
 });

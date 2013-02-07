@@ -20,6 +20,24 @@ class ModuleRepository extends EntityRepository
     private $entity = '\\Neton\\FrameworkBundle\\Entity\\Module';
     
     /**
+     * Retorna a lista dos bundles cadastrados no sistema.
+     * 
+     * @param array $params
+     */
+    public function getList($params)
+    {
+        $qb = $this->_em->createQueryBuilder()
+                ->select('m, b.id as bundle, b.title as bundle_name')
+                ->from($this->entity, 'm')
+                ->join('m.bundle','b')
+                ->orderBy('b.orderIndex','ASC');
+        
+        $rs = $qb->getQuery()->getResult('FlatScalar');
+        
+        return $rs;
+    }
+    
+    /**
      * Encontra e retorna os módulos para a exibição na inteface de usuário.
      * 
      * @param Integer $userId

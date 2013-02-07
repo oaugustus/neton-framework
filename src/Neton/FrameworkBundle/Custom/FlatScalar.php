@@ -22,7 +22,11 @@ class FlatScalar extends ScalarHydrator
             foreach ($result[$i] as $key => $value) {
                 $parts = explode('_',$key);
                 if (count($parts) > 1){
-                    $key = $parts[1];
+                    if (strlen($parts[0]) <= 2)
+                        $key = $parts[1];
+                    else {
+                        $key = $parts[0]."_".$parts[1];
+                    }
                 }
                 
                 $newResult[$i][$key] = $value;

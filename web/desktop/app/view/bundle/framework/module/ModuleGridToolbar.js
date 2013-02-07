@@ -1,14 +1,14 @@
 /**
- * Toolbar do módulo de bundles.
+ * Toolbar do módulo de módulos.
  * 
- * @class   App.view.bundle.framework.bundle.BundleToolbar
+ * @class   App.view.bundle.framework.module.ModuleToolbar
  * @extends Ext.toolbar.Toolbar
- * @alias   bundletoolbar
+ * @alias   moduletoolbar
  * @author  Otávio Fernandes <otavio@netonsolucoes.com.br>
  */
-Ext.define('App.view.bundle.framework.bundle.BundleGridToolbar',{
+Ext.define('App.view.bundle.framework.module.ModuleGridToolbar',{
     extend: 'Ext.toolbar.Toolbar',
-    alias: 'widget.bundlegridtoolbar',
+    alias: 'widget.modulegridtoolbar',
     
     padding: 5,
     
@@ -26,7 +26,7 @@ Ext.define('App.view.bundle.framework.bundle.BundleGridToolbar',{
                         {
                             xtype: 'button',
                             itemId: 'btnNew',
-                            text: 'Nova aplicação',
+                            text: 'Novo Módulo',
                             baseCls: 'red-btn',                            
                             scale: 'large'
                         },
@@ -59,14 +59,9 @@ Ext.define('App.view.bundle.framework.bundle.BundleGridToolbar',{
                             itemId: 'btnDelete',
                             tooltip: 'Excluir',
                             iconCls: 'delete-icon'
-                        },
+                        }                        
+                        
                     ]
-                },
-                '->',
-                {
-                    xtype: 'searchfield',
-                    emptyText: 'busca simples',
-                    width: 180
                 }
             ]
         });

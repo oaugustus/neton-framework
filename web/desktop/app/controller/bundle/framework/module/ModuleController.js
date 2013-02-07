@@ -1,39 +1,38 @@
 /**
- * Controlador do módulo de bundles da aplicação.
+ * Controlador do módulo de módulos da aplicação.
  * 
- * @class   App.controller.bundle.framework.bundle.BundleController
+ * @class   App.controller.bundle.framework.module.ModuleController
  * @extends Ext.app.Controller
  * @author  Otávio Fernandes <otavio@netonsolucoes.com.br>
  */
-Ext.define('App.controller.bundle.framework.bundle.BundleController',{
+Ext.define('App.controller.bundle.framework.module.ModuleController',{
     extend: 'Ext.app.Controller',
    
     // visões utilizadas
     views: [
-        'bundle.framework.bundle.BundleModule'
+        'bundle.framework.module.ModuleModule'
     ],
     
     // data stores utilizados
     stores: [
-        'framework.BundleStore'
+        'framework.ModuleStore'
     ],
     
     // referências
     refs: [
-        {selector: 'bundlemodule', ref: 'module'},
-        {selector: 'bundlegrid', ref: 'grid'},
-        {selector: 'bundlegridtoolbar', ref: 'gridToolbar'},
-        {selector: 'bundlegridtoolbar searchfield', ref: 'searchField'},
-        {selector: 'bundleformtoolbar', ref: 'formToolbar'},
-        {selector: 'bundleform', ref: 'form'}
+        {selector: 'modulemodule', ref: 'module'},
+        {selector: 'modulegrid', ref: 'grid'},
+        {selector: 'modulegridtoolbar', ref: 'gridToolbar'},
+        {selector: 'moduleformtoolbar', ref: 'formToolbar'},
+        {selector: 'moduleform', ref: 'form'}
     ],
     
     card: 'list',
     
     init : function(){
         this.control({
-            // quando o bundle é ativado
-            'bundlemodule': {
+            // quando o module é ativado
+            'modulemodule': {
                 activate: function(){
                     this.application.setActiveModule(this);
                 },
@@ -43,46 +42,46 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
                 }
             },
             
-            // bundle grid
-            'bundlegrid': {
+            // module grid
+            'modulegrid': {
                 render: this.onGridRender,
                 itemclick: this.onGridItemClick
             },
             
-            // botão enable da toolbar da lista de bundles
-            'bundlegridtoolbar #btnEnable' : {
+            // botão enable da toolbar da lista de módulos
+            'modulegridtoolbar #btnEnable' : {
                 click: this.onEnableClick
             },
             
-            // botão disable da toolbar da lista de bundles
-            'bundlegridtoolbar #btnDisable' : {
+            // botão disable da toolbar da lista de módulos
+            'modulegridtoolbar #btnDisable' : {
                 click: this.onDisableClick
             },
             
-            // botão delete da toolbar da lista de bundles
-            'bundlegridtoolbar #btnDelete' : {
+            // botão delete da toolbar da lista de módulos
+            'modulegridtoolbar #btnDelete' : {
                 click: this.onDeleteClick
             },            
             
-            // botão novo da toolbar da lista de bundles
-            'bundlegridtoolbar #btnNew' : {
+            // botão novo da toolbar da lista de módulos
+            'modulegridtoolbar #btnNew' : {
                 click: this.onNewClick
             },
             
-            // formulário de edição de bundles
-            'bundleform field' : {
+            // formulário de edição de módulos
+            'moduleform field' : {
                 change: function(){
                     this.isDirty = true;
                 }
             },
             
-            // botão voltar da toolbar do formulário de bundles
-            'bundleformtoolbar #btnBack' : {
+            // botão voltar da toolbar do formulário de módulos
+            'moduleformtoolbar #btnBack' : {
                 click: this.onBackClick
             },
 
-            // botão salvar da toolbar do formulário de bundles
-            'bundleformtoolbar #btnSave' : {
+            // botão salvar da toolbar do formulário de módulos
+            'moduleformtoolbar #btnSave' : {
                 click: this.onSaveClick
             }
             
@@ -115,7 +114,7 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
     },
     
     /**
-     * Acionado quando o botão save é pressionado no formulário de bundles.
+     * Acionado quando o botão save é pressionado no formulário de módulos.
      * 
      * @param {Ext.button.Button} btn
      */
@@ -127,7 +126,7 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
         if (form.getForm().isValid()){
             btn.setLoading({msg: '...'});
             
-            Actions.NetonFramework_Bundle.save(form.getForm().getValues(), this.onAfterSave, this);
+            Actions.NetonFramework_Module.save(form.getForm().getValues(), this.onAfterSave, this);
         } else {
             Neton.Msg.flash({
                 type: 'error',
@@ -159,7 +158,7 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
                 callback: function(){
                     me.setFocusOnFirst();
                 },
-                msg: 'Aplicação salva com sucesso!'
+                msg: 'Módulo salvo com sucesso!'
             })
             
             me.getForm().getForm().reset();            
@@ -172,7 +171,7 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
         } else {
             Neton.Msg.flash({
                 type: 'error',
-                msg: 'Ocorreu um erro ao salvar a aplicação!'
+                msg: 'Ocorreu um erro ao salvar o módulo!'
             });
         }
     },
@@ -208,33 +207,19 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
      * @param {Ext.grid.Panel} grid
      */
     onGridRender : function(grid){
-        var me = this;
-
-        me.defineColumnRenderers(grid);
-        
-        me.getSearchField().setStore(grid.store);
-        
         grid.down('[dataIndex="enabled"]').renderer = this.renderEnabled;
         grid.down('[dataIndex="isDefault"]').renderer = this.renderIsDefault;
+        grid.down('[dataIndex="separator"]').renderer = this.renderIsDefault;
         
-        grid.getView().on('drop', this.reorderBundles, this);
-        
+        grid.getView().on('drop', this.reorderModule, this);
         grid.getStore().on('load', function(){
             this.changeGridToolbarState();
         },this)
-        
         grid.on('selectionchange', this.changeGridToolbarState, this);
     },
     
     /**
-     * Define os renderizadores das colunas 
-     */
-    defineColumnRenderers : function(){
-        
-    },
-    
-    /**
-     * Acionado quando um item do grid de bundles é clicado. Chama método de 
+     * Acionado quando um item do grid de módulos é clicado. Chama método de 
      * edição de registro.
      * 
      * @param {Ext.grid.Panel} grid
@@ -274,9 +259,9 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
     },    
     
     /**
-     * Reordena os bundles.
+     * Reordena os módulos.
      */
-    reorderBundles : function(target, dd, rec){
+    reorderModules : function(target, dd, rec){
         var store = this.getGrid().getStore(),
             items = [], i = 1;
                 
@@ -288,8 +273,8 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
             i++;
         });
 
-        // chama o método remoto para reordenar os bundles
-        Actions.NetonFramework_Bundle.reorder(items, Ext.emptyFn);
+        // chama o método remoto para reordenar os módulos
+        Actions.NetonFramework_Module.reorder(items, Ext.emptyFn);
         
     },
     
@@ -340,25 +325,25 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
     },
     
     /**
-     * Habilita os bundles selecionados.
+     * Habilita os módulos selecionados.
      * 
      * @param {Ext.button.Button} btn
      */
     onEnableClick : function(){
         var ids = this.getSelectionIds();
         
-        Actions.NetonFramework_Bundle.setEnabled({ids: ids, enabled: '1'}, this.reloadGrid, this);
+        Actions.NetonFramework_Module.setEnabled({ids: ids, enabled: '1'}, this.reloadGrid, this);
     },
     
     /**
-     * Deleta os bundles seleciondados.
+     * Deleta os modules seleciondados.
      * 
      * @param {Ext.button.Button} btn
      */
     onDeleteClick : function(){
         var ids = this.getSelectionIds();
         
-        Actions.NetonFramework_Bundle.remove({bundles: ids}, function(result){
+        Actions.NetonFramework_Module.remove({modules: ids}, function(result){
             if (result){
                 this.reloadGrid();
             } else {
@@ -372,18 +357,18 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
     },    
     
     /**
-     * Desabilita os bundles selecionados.
+     * Desabilita os modulos selecionados.
      * 
      * @param {Ext.button.Button} btn
      */
     onDisableClick : function(){
         var ids = this.getSelectionIds();
         
-        Actions.NetonFramework_Bundle.setEnabled({ids: ids, enabled: '0'}, this.reloadGrid, this);
+        Actions.NetonFramework_Module.setEnabled({ids: ids, enabled: '0'}, this.reloadGrid, this);
     },    
     
     /**
-     * Recarrega o grid de bundles.
+     * Recarrega o grid de modulos.
      */
     reloadGrid : function(){
         // pega a toolbar do grid

@@ -20,10 +20,10 @@ class BundleController extends SessionController
     public function listAction($params)
     {   
         $em = $this->getDoctrine()->getManager();
-        
-        $bundles = $em->getRepository('NetonFrameworkBundle:Bundle')->getList($params);
+                
+        $list = $em->getRepository('NetonFrameworkBundle:Bundle')->getList($params);
                
-        return $this->createStoreResult($bundles);
+        return $this->createStoreResult($list['results'], $list['total']);
     }
     
     /** 
@@ -144,7 +144,7 @@ class BundleController extends SessionController
      * @param string $bundleName 
      * @param string $title 
      */
-    private function buildBundle($bundleName)
+    private function buildBundle($bundleName, $title)
     {        
         // cria o helper de bundles
         $helper = new BundleHelper($this->get('kernel'), $bundleName, $title);        
@@ -178,7 +178,7 @@ class BundleController extends SessionController
         $bundles = $em->getRepository('NetonFrameworkBundle:Bundle')->findAll();
         
         foreach ($bundles as $bundle){
-            $bundle->setIsDefault(false);
+            $bundle->setIsDefault('0');
         }
     }
     

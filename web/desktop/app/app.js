@@ -8,7 +8,9 @@ Ext.application({
     // bibliotecas e plugins úteis
     requires: [
         'Neton.window.Flash',
-        'Neton.button.Button'
+        'Neton.button.Button',
+        'Ext.ux.grid.FiltersFeature',
+        'Ext.ux.form.SearchField'
     ],
     
     // controladores utilizados na aplicação
@@ -19,6 +21,7 @@ Ext.application({
         ,'bundle.framework.FrameworkController'
         ,'bundle.framework.bundle.BundleController'
         ,'bundle.framework.setting.SettingController'
+        ,'bundle.framework.module.ModuleController'
         ,'bundle.setting.SettingController'
         ,'bundle.setting.usergroup.UserGroupController'
         /*</CONTROLLERS>*/
@@ -159,8 +162,9 @@ Ext.application({
      * @param {Ext.form.Panel} form
      */
     registerKeyMap : function(form){
-        var save, esc, createNew;
+        var save, esc, createNew,backspace, del;     
         
+        // registra evento global para salvar formulário aberto ao pressionar Ctrl + S
         save = new Ext.util.KeyMap(Ext.getBody(), [{
            key: Ext.EventObject.S,
            ctrl: true,
@@ -173,6 +177,7 @@ Ext.application({
            }
         }]);                               
     
+        // registra evento global para fechar formulário aberto ao pressionar ESC
         esc = new Ext.util.KeyMap(Ext.getBody(), [{
            key: Ext.EventObject.ESC,
            defaultEventAction: 'preventDefault',
@@ -184,6 +189,7 @@ Ext.application({
            }
         }]);                                   
     
+        // registra evento global para abrir formulário ao pressionar Ctrl + C
         createNew = new Ext.util.KeyMap(Ext.getBody(), [{
            key: Ext.EventObject.C,
            ctrl: true,
@@ -193,6 +199,30 @@ Ext.application({
                try{
                    this.activeModule.onNewPress();
                } catch(e){}               
+           }
+        }]);                                   
+    
+        // registra evento global para prevenir o carregamento da página anterior do navegador
+        backspace = new Ext.util.KeyMap(document, [{
+           key: Ext.EventObject.BACKSPACE,
+           defaultEventAction: 'preventDefault',
+           scope: this,
+           fn: function(e, ev){
+               if (ev.target.type == 'text')
+                   return true;
+               return false;
+           }
+        }]);                                   
+    
+        // registra evento global para prevenir o carregamento da página anterior do navegador
+        del = new Ext.util.KeyMap(document, [{
+           key: Ext.EventObject.DELETE,
+           defaultEventAction: 'preventDefault',
+           scope: this,
+           fn: function(){
+               if (ev.target.type == 'text')
+                   return true;
+               return false;
            }
         }]);                                   
     

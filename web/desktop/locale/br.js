@@ -321,7 +321,7 @@ Ext.onReady(function() {
         falseText  : "falso"
       });
     }
-
+    
     if(exists('Ext.grid.BooleanColumn')){
        Ext.apply(Ext.grid.BooleanColumn.prototype, {
           trueText  : "verdadeiro",
