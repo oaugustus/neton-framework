@@ -102,6 +102,7 @@ Ext.define('App.controller.ui.UiController',{
                 }
                 
             }catch(e){
+            	console.log(e['get message']);
                 // se ocorrer alguma falha, registra o erro ocasionado
                 console.error('O módulo '+ moduleBtn.module + ' não foi encontrado!');
             }

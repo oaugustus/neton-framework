@@ -59,10 +59,16 @@ Ext.define('App.view.bundle.framework.module.ModuleGridToolbar',{
                             itemId: 'btnDelete',
                             tooltip: 'Excluir',
                             iconCls: 'delete-icon'
-                        }                        
-                        
+                        }                                                                        
                     ]
+                },
+                '->',
+                {
+                    xtype: 'searchfield',
+                    emptyText: 'busca simples',
+                    width: 180
                 }
+                
             ]
         });
         

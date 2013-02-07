@@ -38,7 +38,7 @@ class ModuleController extends SessionController
         
         $list = $em->getRepository('NetonFrameworkBundle:Module')->getList($params);
                
-        return $this->createStoreResult($list);
+        return $this->createStoreResult($list['results'], $list['total']);
     }
     
     /** 

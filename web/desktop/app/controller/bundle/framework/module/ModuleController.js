@@ -23,6 +23,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
         {selector: 'modulemodule', ref: 'module'},
         {selector: 'modulegrid', ref: 'grid'},
         {selector: 'modulegridtoolbar', ref: 'gridToolbar'},
+        {selector: 'modulegridtoolbar searchfield', ref: 'searchField'},
         {selector: 'moduleformtoolbar', ref: 'formToolbar'},
         {selector: 'moduleform', ref: 'form'}
     ],
@@ -207,15 +208,28 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
      * @param {Ext.grid.Panel} grid
      */
     onGridRender : function(grid){
-        grid.down('[dataIndex="enabled"]').renderer = this.renderEnabled;
-        grid.down('[dataIndex="isDefault"]').renderer = this.renderIsDefault;
-        grid.down('[dataIndex="separator"]').renderer = this.renderIsDefault;
+    	var me = this;
+    	        
+    	me.defineColumnRenderers(grid);
+    	
+        me.getSearchField().setStore(grid.store);
         
         grid.getView().on('drop', this.reorderModule, this);
         grid.getStore().on('load', function(){
             this.changeGridToolbarState();
         },this)
         grid.on('selectionchange', this.changeGridToolbarState, this);
+    },
+    
+    /**
+     * Define os renderizadores das colunas do grid.
+     * 
+     * @param {Ext.grid.Panel} grid
+     */
+    defineColumnRenderers : function(grid){
+        grid.down('[dataIndex="enabled"]').renderer = this.renderEnabled;
+        grid.down('[dataIndex="isDefault"]').renderer = this.renderIsDefault;
+        grid.down('[dataIndex="separator"]').renderer = this.renderIsDefault;
     },
     
     /**

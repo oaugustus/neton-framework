@@ -36,38 +36,60 @@ Ext.define('App.view.bundle.framework.module.ModuleGrid',{
             features: [{
                     ftype:'grouping',
                     groupHeaderTpl: '{name}'
+            }, {
+					ftype: 'filters',
+                   	encode: 'json'               	
             }],
             columns: [
                 {
                     header: 'Nome',
                     flex: 2,
                     itemId: 'colTitle',
-                    dataIndex: 'title'
+                    dataIndex: 'title',
+                    filter: {
+                    	type: 'string'
+                    }
                 },                
                 {
                     header: 'Classe',
                     flex: 2,
-                    dataIndex: 'name'
+                    dataIndex: 'name',
+                    filter: {
+                    	type: 'string'
+                    }
+                    
                 },
                 {
                     header: 'Ícone',
                     flex: 1,
-                    dataIndex: 'iconCls'
+                    dataIndex: 'iconCls',
+                    filter: {
+                    	type: 'string'
+                    }                    
                 },
                 {
                     header: 'Usa separador',
                     flex: 1,
-                    dataIndex: 'separator'
+                    dataIndex: 'separator',
+                    filter: {
+                    	type: 'boolean'
+                    }                    
                 },                
                 {
                     header: 'Habilitado',
                     flex: 1,
-                    dataIndex: 'enabled'
+                    dataIndex: 'enabled',
+                    filter: {
+                    	type: 'boolean'
+                    }                                        
                 },
                 {
                     header: 'Default',
                     flex: 1,
-                    dataIndex: 'isDefault'
+                    dataIndex: 'isDefault',
+                    filter: {
+                    	type: 'boolean'
+                    }                                        
                 }                                
             ],
             dockedItems: [{
