@@ -52,13 +52,6 @@ class Module
     /**
      * @var string
      *
-     * @ORM\Column(name="xtype", type="string", length=60, nullable=true)
-     */
-    private $xtype;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="is_default", type="string", length=1, nullable=true)
      */
     private $isDefault;
@@ -73,9 +66,9 @@ class Module
     /**
      * @var string
      *
-     * @ORM\Column(name="separator", type="string", length=1, nullable=true)
+     * @ORM\Column(name="spacer", type="string", length=1, nullable=true)
      */
-    private $separator;
+    private $spacer;
 
     /**
      * @var \Bundle
@@ -192,29 +185,6 @@ class Module
     }
 
     /**
-     * Set xtype
-     *
-     * @param string $xtype
-     * @return Module
-     */
-    public function setXtype($xtype)
-    {
-        $this->xtype = $xtype;
-    
-        return $this;
-    }
-
-    /**
-     * Get xtype
-     *
-     * @return string 
-     */
-    public function getXtype()
-    {
-        return $this->xtype;
-    }
-
-    /**
      * Set isDefault
      *
      * @param string $isDefault
@@ -261,26 +231,26 @@ class Module
     }
 
     /**
-     * Set separator
+     * Set spacer
      *
-     * @param string $separator
+     * @param string $spacer
      * @return Module
      */
-    public function setSeparator($separator)
+    public function setSpacer($spacer)
     {
-        $this->separator = $separator;
+        $this->spacer = $spacer;
     
         return $this;
     }
 
     /**
-     * Get separator
+     * Get spacer
      *
      * @return string 
      */
-    public function getSeparator()
+    public function getSpacer()
     {
-        return $this->separator;
+        return $this->spacer;
     }
 
     /**

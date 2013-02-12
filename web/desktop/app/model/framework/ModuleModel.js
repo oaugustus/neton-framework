@@ -15,7 +15,7 @@ Ext.define('App.model.framework.ModuleModel', {
         {name: 'bundle_name', type: 'string'},
         {name: 'bundle',   type: 'int'},
         {name: 'enabled',  type: 'boolean'},
-        {name: 'separator',  type: 'boolean'},
+        {name: 'spacer',  type: 'boolean'},
         {name: 'isDefault', type: 'boolean'},
         {name: 'orderIndex', type: 'int'}
     ],

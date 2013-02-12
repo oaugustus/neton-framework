@@ -62,5 +62,23 @@ class ModuleController extends SessionController
         
         return true;
     }    
-    
+    	
+	/**
+	 * Salva o registro de um módulo.
+	 * 
+	 * @remote
+	 * @param array $params
+	 * @return boolean
+	 */		
+	public function saveAction($params)
+	{
+		// recupera o gerenciador de entidades
+		$em = $this->getDoctrine()->getManager();
+		$repo = $em->getRepository('NetonFrameworkBundle:Module');
+		
+		$entity = $repo->saveEntity($params);
+		$em->flush();
+		
+		return true;
+	} 
 }

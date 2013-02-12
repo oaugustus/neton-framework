@@ -15,6 +15,21 @@ Ext.define('App.controller.ui.UiController',{
         {selector: '#bundleCt', ref: 'bundleCt'},
         {selector: '#moduleCt', ref: 'moduleCt'}
     ],
+       
+       
+    /**
+     * Nome do bundle ativo.
+     * 
+     * @var string
+     */
+	activeBundle : null,
+	
+	/**
+	 * Nome do módulo atibo.
+	 * 
+	 * @var string
+	 */
+	activeModule: null,      
     
     init : function(){
         
@@ -56,6 +71,10 @@ Ext.define('App.controller.ui.UiController',{
                 'click': function(btn){
                     this.activateBundle(btn.bundle, btn)
                 }
+            },
+            
+            'netuiport' : {
+            	'render' : this.onUIRender
             }
         })
         // registra o evento para a atualização dos dados do usuário na toolbar 
@@ -101,8 +120,12 @@ Ext.define('App.controller.ui.UiController',{
                     moduleCt.setActiveTab(moduleBtn.module);
                 }
                 
+                // armazena o nome do módulo ativo
+                me.activeModule = moduleBtn.module;
+                
+                //Ext.History.add(me.activeBundle + ':' + me.activeModule);
             }catch(e){
-            	console.log(e['get message']);
+            	
                 // se ocorrer alguma falha, registra o erro ocasionado
                 console.error('O módulo '+ moduleBtn.module + ' não foi encontrado!');
             }
@@ -163,9 +186,12 @@ Ext.define('App.controller.ui.UiController',{
      */
     activateBundle : function(bundleName){
         var me = this, bundleCt = me.getBundleCt();
-        
+        		       
         try{
-            bundleCt.getLayout().setActiveItem(bundleName);
+            // armazena o nome do bundle ativo
+            me.activeBundle = bundleName;
+        	
+            bundleCt.getLayout().setActiveItem(bundleName);            
         }catch(e){
             console.error('O bundle '+ bundleName+' não encontrado!');
         }
@@ -202,7 +228,7 @@ Ext.define('App.controller.ui.UiController',{
                     });        
                     
                     if (bundle.isDefault){
-                        bundleCt.getLayout().setActiveItem(bundle.name);
+                        me.activateBundle(bundle.name);
                     }
                 }catch(e){
                     console.error('A classe ' + bundle.name + ' do bundle '+ bundle.title +' não foi carregada!');
@@ -212,6 +238,21 @@ Ext.define('App.controller.ui.UiController',{
             // adiciona o botão do bundle à toolbar de bundles
             tb.add(items);
         })
+    },
+    
+    /**
+     * Acionado quando o viewport da UI da app está renderizado.
+     * 
+     * @param {Ext.container.Viewport} vp
+     */
+    onUIRender : function(vp){
+    	var me = this;
+    	
+        /*Ext.History.on('change', function(token) {
+			var parts = token.split(':');
+			
+			me.activeModule(parts[1]);				            
+        });*/    	
     },
     
     /**

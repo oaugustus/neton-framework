@@ -111,7 +111,7 @@ class ModuleRepository extends BaseRepository
                     'name' => $module->getName(),
                     'title' => $module->getTitle(),
                     'isDefault' => (boolean) $module->getIsDefault(),
-                    'separator' => (boolean)$module->getSeparator(),
+                    'separator' => (boolean)$module->getSpacer(),
                     'iconCls' => $module->getIconCls()
                 );
                 

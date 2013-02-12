@@ -22,7 +22,9 @@ Ext.define('App.view.bundle.framework.bundle.BundleFormToolbar',{
             items: [
                 {
                     xtype: 'container',
-                    html: '<div class="breadcrumb"><b>Nova aplicação</b></div>'
+                    itemId: 'formTitle',
+                    cls: 'breadcrumb',                    
+                    html: '<b>Nova aplicação</b>'
                 },
                 {
                     xtype: 'container',

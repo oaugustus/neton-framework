@@ -84,6 +84,18 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
             // botão salvar da toolbar do formulário de bundles
             'bundleformtoolbar #btnSave' : {
                 click: this.onSaveClick
+            },
+            
+            'bundlemodule #gridpanel' : {
+            	activate : function(){
+            		//this.updateHistory('grid');
+            	}
+            },
+            
+            'bundlemodule #formpanel' : {
+            	activate : function(){
+            		//this.updateHistory('form');            		
+            	}
             }
             
             
@@ -112,6 +124,7 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
         this.activateForm();
         this.isDirty = false;
         me.setFocusOnFirst();
+        tb.down('#formTitle').update('<b>Nova aplicação</b>');
     },
     
     /**
@@ -213,10 +226,7 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
         me.defineColumnRenderers(grid);
         
         me.getSearchField().setStore(grid.store);
-        
-        grid.down('[dataIndex="enabled"]').renderer = this.renderEnabled;
-        grid.down('[dataIndex="isDefault"]').renderer = this.renderIsDefault;
-        
+                
         grid.getView().on('drop', this.reorderBundles, this);
         
         grid.getStore().on('load', function(){
@@ -229,8 +239,9 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
     /**
      * Define os renderizadores das colunas 
      */
-    defineColumnRenderers : function(){
-        
+    defineColumnRenderers : function(grid){
+        grid.down('[dataIndex="enabled"]').renderer = this.renderEnabled;
+        grid.down('[dataIndex="isDefault"]').renderer = this.renderIsDefault;        
     },
     
     /**
@@ -245,15 +256,21 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
      */
     onGridItemClick : function(grid, rec, item, index, evt){
         var me = this,
-            tb = me.getFormToolbar();
+            tb = me.getFormToolbar(),
+            token;
         
         if (evt.target.innerHTML != '&nbsp;'){
             tb.down('#ckKeepOpened').setValue(false).hide();
+
+            // atualiza o histórico do navegador
+            this.rec = rec.get('id');
             
             me.activateForm();
             me.getForm().getForm().loadRecord(rec);
             this.isDirty = false;
             me.setFocusOnFirst();
+	        tb.down('#formTitle').update('<b>Editando aplicação</b>');
+            
         }
     },
     
@@ -262,7 +279,7 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
      */
     activateForm : function(){
         this.card = 'form';
-        this.getModule().getLayout().setActiveItem('formpanel');
+        this.getModule().getLayout().setActiveItem('formpanel');        
     },
     
     /**
@@ -270,6 +287,7 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
      */
     activateGrid : function(){
         this.card = 'list';
+        this.rec = null;
         this.getModule().getLayout().setActiveItem('gridpanel');
     },    
     
@@ -467,6 +485,21 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
         if (me.card == 'list'){
             me.onNewClick(tb.down('#btnNew'));
         }               
+    },
+    
+    /**
+     * Atualiza o histórico de navegação de acordo com o painel ativo.
+     * 
+     * @param {String} panel
+     */
+    updateHistory : function(panel){
+    	/*var token = Ext.History.getToken().split(':'),
+    		newToken = token[0] + ':' + token[1] + ':' + panel;
+    	
+    	if (this.rec){
+    		newToken += ':' + this.rec;
+    	}
+    	Ext.History.add(newToken);*/
     }
     
     

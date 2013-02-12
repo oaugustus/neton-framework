@@ -70,7 +70,7 @@ Ext.define('App.view.bundle.framework.module.ModuleGrid',{
                 {
                     header: 'Usa separador',
                     flex: 1,
-                    dataIndex: 'separator',
+                    dataIndex: 'spacer',
                     filter: {
                     	type: 'boolean'
                     }                    

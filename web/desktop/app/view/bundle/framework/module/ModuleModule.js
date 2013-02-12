@@ -65,10 +65,19 @@ Ext.define('App.view.bundle.framework.module.ModuleModule',{
                        xtype: 'moduleformtoolbar'
                    },                   
                    items: [
-                       // formulário de edição
-                       {
-                           xtype: 'moduleform'
-                       }
+	                   	{
+	                   		xtype: 'tabpanel',
+	                   		items: [
+		                       // formulário de edição
+		                       {
+		                           xtype: 'moduleform'
+		                       },
+		                       {
+		                       		xtype: 'panel',
+		                       		title: 'Interface'
+		                       }	                   		
+	                   		]
+	                   	}
                    ]
                }               
            ]

@@ -52,13 +52,6 @@ class Module
     /**
      * @var string
      *
-     * @ORM\Column(name="xtype", type="string", length=60, nullable=true)
-     */
-    private $xtype;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="is_default", type="string", length=1, nullable=true)
      */
     private $isDefault;
@@ -73,9 +66,9 @@ class Module
     /**
      * @var string
      *
-     * @ORM\Column(name="separator", type="string", length=1, nullable=true)
+     * @ORM\Column(name="spacer", type="string", length=1, nullable=true)
      */
-    private $separator;
+    private $spacer;
 
     /**
      * @var \Bundle

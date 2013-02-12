@@ -9,6 +9,7 @@ Ext.application({
     requires: [
         'Neton.window.Flash',
         'Neton.button.Button',
+        'Neton.form.ComboBox',
         'Ext.ux.grid.FiltersFeature',
         'Ext.ux.form.SearchField'
     ],
@@ -20,8 +21,9 @@ Ext.application({
         ,'bundle.dashboard.DashboardController'
         ,'bundle.framework.FrameworkController'
         ,'bundle.framework.bundle.BundleController'
-        ,'bundle.framework.setting.SettingController'
         ,'bundle.framework.module.ModuleController'
+        ,'bundle.framework.setting.SettingController'
+        ,'bundle.request.RequestController'
         ,'bundle.setting.SettingController'
         ,'bundle.setting.usergroup.UserGroupController'
         /*</CONTROLLERS>*/
@@ -44,6 +46,9 @@ Ext.application({
      */
     launch: function(){
         var me = this;
+	
+		// inicializa o histórico        
+	    //Ext.History.init();
         
         // verifica se o usuário está logado
         Actions.NetonFramework_Security.isLogged({}, function(r){

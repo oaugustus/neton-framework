@@ -12,12 +12,15 @@ Ext.define('App.view.bundle.framework.module.ModuleForm',{
     
     bodyPadding: 5,
     autoScroll: true,
+    title: 'Cadastro',
     
     /**
      * Inicializa o componente.
      */
     initComponent : function(){
-        var me = this;
+        var me = this,
+            required = '<span style="color:red;font-weight:bold" data-qtip="Obrigatório">*</span>';
+        
         
         Ext.applyIf(me, {
             bbar: {
@@ -33,12 +36,16 @@ Ext.define('App.view.bundle.framework.module.ModuleForm',{
                     cls: 'n-field-ct',
                     items: [
                         {
-                            xtype: 'combo',
+                            xtype: 'netoncombo',
                             labelAlign: 'top',
                             width: 400,
                             msgTarget: 'side',
                             allowBlank: false,
-                            name: 'title',
+                            name: 'bundle',
+                            displayField: 'title',
+                            valueField: 'id',
+                            afterLabelTextTpl: required,
+                            store: new App.store.framework.BundleStore(),
                             fieldLabel: '<b>Aplicação</b>'
                         }                        
                     ]
@@ -54,6 +61,7 @@ Ext.define('App.view.bundle.framework.module.ModuleForm',{
                             msgTarget: 'side',
                             allowBlank: false,
                             name: 'title',
+                            afterLabelTextTpl: required,
                             fieldLabel: '<b>Nome</b>'
                         }                        
                     ]
@@ -69,6 +77,7 @@ Ext.define('App.view.bundle.framework.module.ModuleForm',{
                             msgTarget: 'side',
                             name: 'name',
                             allowBlank: false,
+                            afterLabelTextTpl: required,
                             fieldLabel: '<b>Classe</b> (xtype ExtJS)'
                         }                        
                     ]
@@ -84,10 +93,28 @@ Ext.define('App.view.bundle.framework.module.ModuleForm',{
                             msgTarget: 'side',
                             name: 'iconCls',
                             allowBlank: false,
+                            afterLabelTextTpl: required,
                             fieldLabel: '<b>Ícone</b> (classe CSS)'
                         }                        
                     ]
                 },
+                {
+                    xtype: 'container',
+                    cls: 'n-field-ct',
+                    items: [
+                        {
+                            xtype: 'radiogroup',
+                            fieldLabel: '<b>Usar separador</b>',
+                            columns: 2,
+                            labelAlign: 'top',
+                            width: 150,
+                            items: [
+                                { boxLabel: 'Sim', name: 'spacer', inputValue: '1'},
+                                { boxLabel: 'Não', name: 'spacer', inputValue: '0', checked: true}
+                            ]
+                        }                        
+                    ]
+                },                
                 {
                     xtype: 'container',
                     cls: 'n-field-ct',

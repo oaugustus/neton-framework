@@ -121,7 +121,7 @@ class SessionController extends Controller
             }
         }
     }
-    
+    	
     /**
      * Create an ExtJS valid result.
      * @param  array $result

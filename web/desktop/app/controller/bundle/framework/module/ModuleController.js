@@ -112,6 +112,8 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
         this.activateForm();
         this.isDirty = false;
         me.setFocusOnFirst();
+        
+        tb.down('#formTitle').update('<b>Novo módulo</b>');
     },
     
     /**
@@ -229,7 +231,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
     defineColumnRenderers : function(grid){
         grid.down('[dataIndex="enabled"]').renderer = this.renderEnabled;
         grid.down('[dataIndex="isDefault"]').renderer = this.renderIsDefault;
-        grid.down('[dataIndex="separator"]').renderer = this.renderIsDefault;
+        grid.down('[dataIndex="spacer"]').renderer = this.renderIsDefault;
     },
     
     /**
@@ -253,6 +255,9 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
             me.getForm().getForm().loadRecord(rec);
             this.isDirty = false;
             me.setFocusOnFirst();
+	        tb.down('#formTitle').update('<b>Editando módulo</b>');
+            
+
         }
     },
     
