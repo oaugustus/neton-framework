@@ -102,7 +102,7 @@ class ModuleHelper
         $this->registerControllerLoad();
         
         // contrói a view
-        //$this->buildView();        
+        $this->buildView();        
     }
     
     /**
@@ -153,7 +153,79 @@ class ModuleHelper
 		);
 		
 		$this->writeModuleFile($keys);
+		$this->writeFormFile($keys);
+		$this->writeFormToolbarFile($keys);
+		$this->writeGridFile($keys);
+		$this->writeGridToolbarFile($keys);		
     }
+	
+	/**
+	 * Escreve o arquivo da toolbar do formulário do módulo.
+	 * 
+	 * @param array $keys
+	 */
+	private function writeGridFile($keys)
+	{
+        // pega o arquivo de template de módulos
+        $view = $this->replaceKeys($keys, file_get_contents(__DIR__.'/templates/ModuleGrid.js'));
+                
+        // define o nome do arquivo js
+        $filename = $this->viewDir.'/'.ucfirst($this->module).'Grid.js';
+        
+        // grava o novo arquivo no controlador
+        file_put_contents($filename, $view);		
+	}
+	
+	/**
+	 * Escreve o arquivo da toolbar do grid do módulo.
+	 * 
+	 * @param array $keys
+	 */
+	private function writeGridToolbarFile($keys)
+	{
+        // pega o arquivo de template de módulos
+        $view = $this->replaceKeys($keys, file_get_contents(__DIR__.'/templates/ModuleGridToolbar.js'));
+                
+        // define o nome do arquivo js
+        $filename = $this->viewDir.'/'.ucfirst($this->module).'GridToolbar.js';
+        
+        // grava o novo arquivo no controlador
+        file_put_contents($filename, $view);		
+	}
+	
+	/**
+	 * Escreve o arquivo da toolbar do formulário do módulo.
+	 * 
+	 * @param array $keys
+	 */
+	private function writeFormToolbarFile($keys)
+	{
+        // pega o arquivo de template de módulos
+        $view = $this->replaceKeys($keys, file_get_contents(__DIR__.'/templates/ModuleFormToolbar.js'));
+                
+        // define o nome do arquivo js
+        $filename = $this->viewDir.'/'.ucfirst($this->module).'FormToolbar.js';
+        
+        // grava o novo arquivo no controlador
+        file_put_contents($filename, $view);		
+	}
+	
+	/**
+	 * Escreve o arquivo do formulário do módulo.
+	 * 
+	 * @param array $keys
+	 */
+	private function writeFormFile($keys)
+	{
+        // pega o arquivo de template de módulos
+        $view = $this->replaceKeys($keys, file_get_contents(__DIR__.'/templates/ModuleForm.js'));
+                
+        // define o nome do arquivo js
+        $filename = $this->viewDir.'/'.ucfirst($this->module).'Form.js';
+        
+        // grava o novo arquivo no controlador
+        file_put_contents($filename, $view);		
+	}
 	
 	/**
 	 * Escreve o arquivo do módulo.
@@ -172,6 +244,12 @@ class ModuleHelper
         file_put_contents($filename, $view);		
 	}
 	
+	/**
+	 * Substituí as chaves localizadas em uma string.
+	 * 
+	 * @param Array $keys
+	 * @param String $file
+	 */
 	private function replaceKeys($keys, $file)
 	{
         // substitui os nomes referenciados

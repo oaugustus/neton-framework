@@ -1,20 +1,20 @@
 /**
- * Interface principal do módulo de [module].
+ * Interface principal do módulo de teste.
  * 
- * @class   App.view.bundle.[bundle].[module].[Module]Module
+ * @class   App.view.bundle.setting.teste.TesteModule
  * @extends Ext.panel.Panel
- * @alias   [module]module
+ * @alias   testemodule
  * @author  Otávio Fernandes <otavio@netonsolucoes.com.br>
  */
-Ext.define('App.view.bundle.[bundle].[module].[Module]Module',{
+Ext.define('App.view.bundle.setting.teste.TesteModule',{
    extend: 'Ext.panel.Panel',
-   alias: 'widget.[module]module',
+   alias: 'widget.testemodule',
    
    requires: [
-       'App.view.bundle.[bundle].[module].[Module]GridToolbar',
-       'App.view.bundle.[bundle].[module].[Module]Grid',
-       'App.view.bundle.[bundle].[module].[Module]FormToolbar',
-       'App.view.bundle.[bundle].[module].[Module]Form',
+       'App.view.bundle.setting.teste.TesteGridToolbar',
+       'App.view.bundle.setting.teste.TesteGrid',
+       'App.view.bundle.setting.teste.TesteFormToolbar',
+       'App.view.bundle.setting.teste.TesteForm',
    ],
    
    // configurações internas
@@ -44,12 +44,12 @@ Ext.define('App.view.bundle.[bundle].[module].[Module]Module',{
                    bodyPadding: 5,
                    // toolbar do grid
                    tbar: {
-                       xtype: '[module]gridtoolbar'
+                       xtype: 'testegridtoolbar'
                    },                   
                    items: [
                        // grid de bundles
                        {
-                           xtype: '[module]grid'
+                           xtype: 'testegrid'
                        }
                    ]
                },
@@ -62,12 +62,12 @@ Ext.define('App.view.bundle.[bundle].[module].[Module]Module',{
                    bodyPadding: 5,
                    // toolbar do form
                    tbar: {
-                       xtype: '[module]formtoolbar'
+                       xtype: 'testeformtoolbar'
                    },                   
                    items: [
                        // formulário de edição
                        {
-                           xtype: '[module]form'
+                           xtype: 'testeform'
                        }
                    ]
                }               
