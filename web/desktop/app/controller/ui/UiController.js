@@ -125,7 +125,7 @@ Ext.define('App.controller.ui.UiController',{
                 
                 //Ext.History.add(me.activeBundle + ':' + me.activeModule);
             }catch(e){
-            	
+            	throw e;
                 // se ocorrer alguma falha, registra o erro ocasionado
                 console.error('O módulo '+ moduleBtn.module + ' não foi encontrado!');
             }

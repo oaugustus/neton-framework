@@ -19,9 +19,8 @@ Ext.define('App.view.bundle.framework.module.ModuleGrid',{
                 checkOnly: true,
                 allowDeselect: true,
                 mode: 'SIMPLE'
-            }),
-            store = new App.store.framework.ModuleStore();
-            store.load();
+            });
+            store = new App.store.framework.ModuleStore();            
         
         Ext.applyIf(me,{
             store: store,
@@ -94,7 +93,7 @@ Ext.define('App.view.bundle.framework.module.ModuleGrid',{
             ],
             dockedItems: [{
                 xtype: 'pagingtoolbar',
-                store: store,   // same store GridPanel is using
+                store: store,
                 dock: 'bottom',
                 displayInfo: true
             }]

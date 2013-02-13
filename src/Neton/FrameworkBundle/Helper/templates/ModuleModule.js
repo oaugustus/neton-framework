@@ -1,20 +1,20 @@
 /**
- * Interface principal do módulo de módulos.
+ * Interface principal do módulo de [module].
  * 
- * @class   App.view.framework.module.ModuleModule
+ * @class   App.view.[bundle].[module].[Module]Module
  * @extends Ext.panel.Panel
- * @alias   bundlemodule
+ * @alias   [module]module
  * @author  Otávio Fernandes <otavio@netonsolucoes.com.br>
  */
-Ext.define('App.view.bundle.framework.module.ModuleModule',{
+Ext.define('App.view.bundle.[bundle].[module].[Module]Module',{
    extend: 'Ext.panel.Panel',
-   alias: 'widget.modulemodule',
+   alias: 'widget.[module]module',
    
    requires: [
-       'App.view.bundle.framework.module.ModuleGridToolbar',
-       'App.view.bundle.framework.module.ModuleGrid',
-       'App.view.bundle.framework.module.ModuleFormToolbar',
-       'App.view.bundle.framework.module.ModuleForm',
+       'App.view.bundle.[bundle].[module].[Module]GridToolbar',
+       'App.view.bundle.[bundle].[module].[Module]Grid',
+       'App.view.bundle.[bundle].[module].[Module]FormToolbar',
+       'App.view.bundle.[bundle].[module].[Module]Form',
    ],
    
    // configurações internas
@@ -44,12 +44,12 @@ Ext.define('App.view.bundle.framework.module.ModuleModule',{
                    bodyPadding: 5,
                    // toolbar do grid
                    tbar: {
-                       xtype: 'modulegridtoolbar'
+                       xtype: '[module]gridtoolbar'
                    },                   
                    items: [
                        // grid de bundles
                        {
-                           xtype: 'modulegrid'
+                           xtype: '[module]grid'
                        }
                    ]
                },
@@ -62,12 +62,12 @@ Ext.define('App.view.bundle.framework.module.ModuleModule',{
                    bodyPadding: 5,
                    // toolbar do form
                    tbar: {
-                       xtype: 'moduleformtoolbar'
+                       xtype: '[module]formtoolbar'
                    },                   
                    items: [
                        // formulário de edição
                        {
-                           xtype: 'moduleform'
+                           xtype: '[module]form'
                        }
                    ]
                }               

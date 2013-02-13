@@ -1,40 +1,40 @@
 /**
- * Controlador do módulo de módulos da aplicação.
+ * Controlador do módulo [module].
  * 
- * @class   App.controller.bundle.framework.module.ModuleController
+ * @class   App.controller.bundle.[bundle].[module].[Module]Controller
  * @extends Ext.app.Controller
  * @author  Otávio Fernandes <otavio@netonsolucoes.com.br>
  */
-Ext.define('App.controller.bundle.framework.module.ModuleController',{
+Ext.define('App.controller.bundle.[bundle].[module].[Module]Controller',{
     extend: 'Ext.app.Controller',
    
     // visões utilizadas
     views: [
-        'bundle.framework.module.ModuleModule'
+        'bundle.[bundle].[module].[Module]Module'
     ],
     
     // data stores utilizados
     stores: [
-        'framework.ModuleStore'
+        'framework.[Entity]Store'
     ],
     
     // referências
     refs: [
-        {selector: 'modulemodule', ref: 'module'},
-        {selector: 'modulegrid', ref: 'grid'},
-        {selector: 'modulegridtoolbar', ref: 'gridToolbar'},
-        {selector: 'modulegridtoolbar searchfield', ref: 'searchField'},
-        {selector: 'moduleformtoolbar', ref: 'formToolbar'},
-        {selector: 'moduleform', ref: 'form'}
+        {selector: '[module]module', ref: 'module'},
+        {selector: '[module]grid', ref: 'grid'},
+        {selector: '[module]gridtoolbar', ref: 'gridToolbar'},
+        {selector: '[module]gridtoolbar searchfield', ref: 'searchField'},
+        {selector: '[module]formtoolbar', ref: 'formToolbar'},
+        {selector: '[module]form', ref: 'form'}
     ],
     
     card: 'list',
-    remoteController: Actions.NetonFramework_Module,
+    remoteController: Actions.[RemoteController],
     
     init : function(){
         this.control({
-            // quando o module é ativado
-            'modulemodule': {
+            // quando o módulo é ativado
+            '[module]module': {
                 activate: function(){
                     this.application.setActiveModule(this);
                 },
@@ -44,50 +44,38 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
                 }
             },
             
-            // module grid
-            'modulegrid': {
+            // grid
+            '[module]grid': {
                 render: this.onGridRender,
                 itemclick: this.onGridItemClick
             },
-            
-            // botão enable da toolbar da lista de módulos
-            'modulegridtoolbar #btnEnable' : {
-                click: this.onEnableClick
-            },
-            
-            // botão disable da toolbar da lista de módulos
-            'modulegridtoolbar #btnDisable' : {
-                click: this.onDisableClick
-            },
-            
-            // botão delete da toolbar da lista de módulos
-            'modulegridtoolbar #btnDelete' : {
-                click: this.onDeleteClick
-            },            
-            
+
             // botão novo da toolbar da lista de módulos
-            'modulegridtoolbar #btnNew' : {
+            '[module]gridtoolbar #btnNew' : {
                 click: this.onNewClick
             },
             
-            // formulário de edição de módulos
-            'moduleform field' : {
+            // botão delete da toolbar da lista de módulos
+            '[module]gridtoolbar #btnDelete' : {
+                click: this.onDeleteClick
+            },                        
+            
+            // formulário de edição
+            '[module]form field' : {
                 change: function(){
                     this.isDirty = true;
                 }
             },
             
-            // botão voltar da toolbar do formulário de módulos
-            'moduleformtoolbar #btnBack' : {
+            // botão voltar da toolbar do formulário
+            '[module]formtoolbar #btnBack' : {
                 click: this.onBackClick
             },
 
-            // botão salvar da toolbar do formulário de módulos
-            'moduleformtoolbar #btnSave' : {
+            // botão salvar da toolbar do formulário
+            '[module]formtoolbar #btnSave' : {
                 click: this.onSaveClick
-            }
-            
-            
+            }                        
         })
     },
     
@@ -98,6 +86,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
         var me = this,
         	fields = me.getForm().getForm().getFields();
         	
+        // coloca o foco no segundo campo, pois o primeiro é o hidden id
         fields.items[1].focus(false, 100);
     },
     
@@ -115,11 +104,11 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
         this.isDirty = false;
         me.setFocusOnFirst();
         
-        tb.down('#formTitle').update('<b>Novo módulo</b>');
+        tb.down('#formTitle').update('<b>Novo</b>');
     },
     
     /**
-     * Acionado quando o botão save é pressionado no formulário de módulos.
+     * Acionado quando o botão save é pressionado no formulário.
      * 
      * @param {Ext.button.Button} btn
      */
@@ -132,7 +121,6 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
             btn.setLoading({msg: '...'});
             
             me.remoteController.save(form.getForm().getValues(), this.onAfterSave, this);
-            
         } else {
             Neton.Msg.flash({
                 type: 'error',
@@ -164,7 +152,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
                 callback: function(){
                     me.setFocusOnFirst();
                 },
-                msg: 'Módulo salvo com sucesso!'
+                msg: 'Registro salvo com sucesso!'
             })
             
             me.getForm().getForm().reset();            
@@ -177,7 +165,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
         } else {
             Neton.Msg.flash({
                 type: 'error',
-                msg: 'Ocorreu um erro ao salvar o módulo!'
+                msg: 'Ocorreu um erro ao salvar o registro!'
             });
         }
     },
@@ -220,10 +208,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
     	
     	// define o datastore do campo básico de consulta
         me.getSearchField().setStore(grid.store);
-        
-        // registra eventos para a reordenação das linhas
-        grid.getView().on('drop', this.reorderModule, this);
-        
+                
         // registra evento para o carregamento do grid
         grid.getStore().on('load', function(){
             this.changeGridToolbarState();
@@ -242,13 +227,11 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
      * @param {Ext.grid.Panel} grid
      */
     defineColumnRenderers : function(grid){
-        grid.down('[dataIndex="enabled"]').renderer = this.renderEnabled;
-        grid.down('[dataIndex="isDefault"]').renderer = this.renderIsDefault;
-        grid.down('[dataIndex="spacer"]').renderer = this.renderIsDefault;
+        //grid.down('[dataIndex="enabled"]').renderer = this.renderEnabled;
     },
     
     /**
-     * Acionado quando um item do grid de módulos é clicado. Chama método de 
+     * Acionado quando um item do grid é clicado. Chama método de 
      * edição de registro.
      * 
      * @param {Ext.grid.Panel} grid
@@ -268,7 +251,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
             me.getForm().getForm().loadRecord(rec);
             this.isDirty = false;
             me.setFocusOnFirst();
-	        tb.down('#formTitle').update('<b>Editando Módulo</b>');
+	        tb.down('#formTitle').update('<b>Editando</b>');
             
 
         }
@@ -289,27 +272,6 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
         this.card = 'list';
         this.getModule().getLayout().setActiveItem('gridpanel');
     },    
-    
-    /**
-     * Reordena os módulos.
-     */
-    reorderModules : function(target, dd, rec){
-        var me = this, 
-        	store = this.getGrid().getStore(),
-            items = [], i = 1;
-                
-        store.each(function(rec){
-            items.push({
-                order: i,
-                id: rec.get('id')
-            });
-            i++;
-        });
-
-        // chama o método remoto para reordenar os módulos
-        me.remoteController.reorder(items, Ext.emptyFn);
-        
-    },
     
     /**
      * Muda o estado dos botões da toolbar do grid.
@@ -358,23 +320,13 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
     },
     
     /**
-     * Habilita os módulos selecionados.
-     * 
-     * @param {Ext.button.Button} btn
-     */
-    onEnableClick : function(){
-        var me = this, ids = this.getSelectionIds();
-        
-        me.remoteController.setEnabled({ids: ids, enabled: '1'}, this.reloadGrid, this);
-    },
-    
-    /**
      * Deleta os modules seleciondados.
      * 
      * @param {Ext.button.Button} btn
      */
     onDeleteClick : function(){
-        var me = this, ids = this.getSelectionIds();
+        var me = this,
+        	ids = this.getSelectionIds();
         
         me.remoteController.remove({modules: ids}, function(result){
             if (result){
@@ -382,7 +334,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
             } else {
                 Neton.Msg.flash({
                     type: 'error',
-                    msg: 'Não foi possível excluir as aplicações, verifique se existem módulos vinculados a elas!',
+                    msg: 'Não foi possível excluir os registros, verifique se existem relacionamentos vinculados a eles!',
                     autoHideSleep: 4
                 })
             }
@@ -390,48 +342,11 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
     },    
     
     /**
-     * Desabilita os modulos selecionados.
-     * 
-     * @param {Ext.button.Button} btn
-     */
-    onDisableClick : function(){
-        var me = this, ids = this.getSelectionIds();
-        
-        me.remoteController.setEnabled({ids: ids, enabled: '0'}, this.reloadGrid, this);
-    },    
-    
-    /**
-     * Recarrega o grid de modulos.
+     * Recarrega o grid.
      */
     reloadGrid : function(){
         // pega a toolbar do grid
         this.getGrid().dockedItems.items[1].doRefresh();        
-    },
-    
-    /**
-     * Renderiza a coluna Enabled
-     * 
-     * @param {Boolean} value
-     */
-    renderEnabled : function(value){
-        if (value == true){
-            return 'Sim';
-        } else {
-            return 'Não';
-        }
-    },
-    
-    /**
-     * Renderiza a coluna IsDefault
-     * 
-     * @param {Boolean} value
-     */
-    renderIsDefault : function(value){
-        if (value == true){
-            return 'Sim';
-        } else {
-            return 'Não';
-        }
     },
     
     /**
@@ -476,7 +391,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
     },
     
     /**
-     * Acionado ao pressionar Ctrl + N
+     * Acionado ao pressionar Ctrl + C
      */
     onNewPress : function(){
         var me = this,
@@ -486,7 +401,6 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
             me.onNewClick(tb.down('#btnNew'));
         }               
     }
-    
-    
+        
 })
 

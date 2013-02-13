@@ -4,7 +4,7 @@ namespace Neton\FrameworkBundle\Controller;
 
 use Neton\DirectBundle\Annotation\Form;
 use Neton\DirectBundle\Annotation\Remote;
-
+use Neton\FrameworkBundle\Helper\ModuleHelper;
 
 class ModuleController extends SessionController
 {
@@ -79,6 +79,25 @@ class ModuleController extends SessionController
 		$entity = $repo->saveEntity($params);
 		$em->flush();
 		
+        $this->buildModule($entity);
+		
+		
 		return true;
 	} 
+	
+	/**
+	 * Constrói e registra os arquivos e scripts da UI do módulo.
+	 * 
+	 * @param Neton\FrameworkBundle\Entity\Module $module
+	 */
+	private function buildModule($module)
+	{
+        // cria o helper de bundles
+        $helper = new ModuleHelper($this->get('kernel'), $module);        
+                
+        // se os arquivos do bundle não existirem
+        if (!$helper->moduleExists()){
+            $helper->build();
+        }		
+	}
 }

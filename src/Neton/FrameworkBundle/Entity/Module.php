@@ -71,6 +71,20 @@ class Module
     private $spacer;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="entity", type="string", length=100, nullable=true)
+     */
+    private $entity;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="remote_controller", type="string", length=100, nullable=true)
+     */
+    private $remoteController;
+
+    /**
      * @var \Bundle
      *
      * @ORM\ManyToOne(targetEntity="Bundle")
@@ -251,6 +265,52 @@ class Module
     public function getSpacer()
     {
         return $this->spacer;
+    }
+
+    /**
+     * Set entity
+     *
+     * @param string $entity
+     * @return Module
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+    
+        return $this;
+    }
+
+    /**
+     * Get entity
+     *
+     * @return string 
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * Set remoteController
+     *
+     * @param string $remoteController
+     * @return Module
+     */
+    public function setRemoteController($remoteController)
+    {
+        $this->remoteController = $remoteController;
+    
+        return $this;
+    }
+
+    /**
+     * Get remoteController
+     *
+     * @return string 
+     */
+    public function getRemoteController()
+    {
+        return $this->remoteController;
     }
 
     /**

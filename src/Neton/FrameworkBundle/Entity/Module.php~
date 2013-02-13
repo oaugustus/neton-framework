@@ -71,6 +71,20 @@ class Module
     private $spacer;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="entity", type="string", length=100, nullable=true)
+     */
+    private $entity;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="remote_controller", type="string", length=100, nullable=true)
+     */
+    private $remoteController;
+
+    /**
      * @var \Bundle
      *
      * @ORM\ManyToOne(targetEntity="Bundle")

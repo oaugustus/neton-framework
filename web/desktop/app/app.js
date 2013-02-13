@@ -23,8 +23,8 @@ Ext.application({
         ,'bundle.framework.bundle.BundleController'
         ,'bundle.framework.module.ModuleController'
         ,'bundle.framework.setting.SettingController'
-        ,'bundle.request.RequestController'
         ,'bundle.setting.SettingController'
+        ,'bundle.setting.teste.TesteController'
         ,'bundle.setting.usergroup.UserGroupController'
         /*</CONTROLLERS>*/
     ],

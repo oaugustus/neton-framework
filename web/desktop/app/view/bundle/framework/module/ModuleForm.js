@@ -12,7 +12,6 @@ Ext.define('App.view.bundle.framework.module.ModuleForm',{
     
     bodyPadding: 5,
     autoScroll: true,
-    title: 'Cadastro',
     
     /**
      * Inicializa o componente.
@@ -162,7 +161,35 @@ Ext.define('App.view.bundle.framework.module.ModuleForm',{
                         }                
                         
                     ]
-                }                
+                },
+                {
+                    xtype: 'container',
+                    cls: 'n-field-ct',
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            labelAlign: 'top',
+                            width: 200,
+                            name: 'entity',
+                            fieldLabel: '<b>Entidade do banco</b>'
+                        }                
+                        
+                    ]
+                },
+				{
+                    xtype: 'container',
+                    cls: 'n-field-ct',
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            labelAlign: 'top',
+                            width: 200,
+                            name: 'remoteController',
+                            fieldLabel: '<b>Controlador remoto</b>'
+                        }                
+                        
+                    ]
+                }                                                
             ]
         });
         
