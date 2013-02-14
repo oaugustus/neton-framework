@@ -122,13 +122,16 @@ class ModuleHelper
         // pega o arquivo de template de bundles
         $file = file_get_contents(__DIR__.'/templates/ModuleController.js');
         
+		// recupera o nome do controlador remoto a ser chamado
+		$remoteController = str_replace("Bundle", "", $this->entity->getRemoteBundle()).'_'.str_replace('Controller', '', $this->entity->getRemoteController());
+		
         // substitui os nomes referenciados do módulo
         $file = str_replace('[bundle]',$this->bundle, $file);
         $file = str_replace('[Bundle]', ucfirst($this->bundle), $file);
         $file = str_replace('[module]',$this->module, $file);
         $file = str_replace('[Module]', ucfirst($this->module), $file);
         $file = str_replace('[Entity]', ucfirst($this->entity->getEntity()), $file);		
-        $file = str_replace('[RemoteController]', ucfirst($this->entity->getRemoteController()), $file);
+        $file = str_replace('[RemoteController]', $remoteController, $file);
         
         // define o nome do arquivo js
         $filename = $this->controllerDir.'/'.ucfirst($this->module).'Controller.js';
@@ -142,12 +145,15 @@ class ModuleHelper
      */
     private function buildView()
     {
+		// recupera o nome do controlador remoto a ser chamado
+		$remoteController = str_replace("Bundle", "", $this->entity->getRemoteBundle()).'_'.str_replace('Controller', '', $this->entity->getRemoteController());
+    	
 		// define as chaves de substituição    		
     	$keys = array(
     		'bundle' => $this->bundle,
     		'Bundle' => ucfirst($this->bundle),
     		'Entity' => $this->entity->getEntity(),
-    		'RemoteController' => $this->entity->getRemoteController(),
+    		'RemoteController' => $remoteController,
     		'module' => $this->module,
     		'Module' => ucfirst($this->module)
 		);

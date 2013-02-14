@@ -30,6 +30,11 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
     
     card: 'list',
     remoteController: Actions.NetonFramework_Module,
+    saveErrors: {
+    	1: 'O Bundle do Symfony não foi localizado ou está desativado!',
+    	2: 'A Controlador remoto informado não foi localizado!',
+    	3: 'A Entidade informada não foi localizada!' 
+    },
     
     init : function(){
         this.control({
@@ -46,6 +51,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
             
             // module grid
             'modulegrid': {
+            	beforerender: this.onGridBeforeRender,
                 render: this.onGridRender,
                 itemclick: this.onGridItemClick
             },
@@ -155,7 +161,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
         
         tb.down('#btnSave').setLoading(false);
         
-        if (result){
+        if (result.success){
             
             Neton.Msg.flash({
                 type: 'success',
@@ -177,7 +183,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
         } else {
             Neton.Msg.flash({
                 type: 'error',
-                msg: 'Ocorreu um erro ao salvar o módulo!'
+                msg: this.saveErrors[result.error]
             });
         }
     },
@@ -206,6 +212,10 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
             );
         }
     },    
+    
+    onGridBeforeRender : function(grid){
+    	grid.reconfigure(new App.store.framework.ModuleStore(), grid.columns);
+    },
     
     /**
      * Registra eventos para o grid.

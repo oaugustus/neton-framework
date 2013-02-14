@@ -102,6 +102,54 @@ Ext.define('App.view.bundle.framework.module.ModuleForm',{
                     cls: 'n-field-ct',
                     items: [
                         {
+                            xtype: 'textfield',
+                            labelAlign: 'top',
+                            width: 200,
+                            name: 'remoteBundle',
+                            allowBlank: false,
+                            msgTarget: 'side',
+                            afterLabelTextTpl: required,
+                            fieldLabel: '<b>Bundle Symfony</b>'
+                        }                
+                        
+                    ]
+                },                
+				{
+                    xtype: 'container',
+                    cls: 'n-field-ct',
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            labelAlign: 'top',
+                            width: 200,
+                            name: 'remoteController',
+                            allowBlank: false,
+                            msgTarget: 'side',
+                            afterLabelTextTpl: required,
+                            fieldLabel: '<b>Controlador remoto</b>'
+                        }                
+                        
+                    ]
+                },
+                {
+                    xtype: 'container',
+                    cls: 'n-field-ct',
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            labelAlign: 'top',
+                            width: 200,
+                            name: 'entity',
+                            fieldLabel: '<b>Entidade do banco</b>'
+                        }                
+                        
+                    ]
+                },                
+                {
+                    xtype: 'container',
+                    cls: 'n-field-ct',
+                    items: [
+                        {
                             xtype: 'radiogroup',
                             fieldLabel: '<b>Usar separador</b>',
                             columns: 2,
@@ -161,35 +209,7 @@ Ext.define('App.view.bundle.framework.module.ModuleForm',{
                         }                
                         
                     ]
-                },
-                {
-                    xtype: 'container',
-                    cls: 'n-field-ct',
-                    items: [
-                        {
-                            xtype: 'textfield',
-                            labelAlign: 'top',
-                            width: 200,
-                            name: 'entity',
-                            fieldLabel: '<b>Entidade do banco</b>'
-                        }                
-                        
-                    ]
-                },
-				{
-                    xtype: 'container',
-                    cls: 'n-field-ct',
-                    items: [
-                        {
-                            xtype: 'textfield',
-                            labelAlign: 'top',
-                            width: 200,
-                            name: 'remoteController',
-                            fieldLabel: '<b>Controlador remoto</b>'
-                        }                
-                        
-                    ]
-                }                                                
+                }
             ]
         });
         

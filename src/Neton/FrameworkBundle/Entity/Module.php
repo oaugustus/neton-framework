@@ -85,6 +85,13 @@ class Module
     private $remoteController;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="remote_bundle", type="string", length=100, nullable=true)
+     */
+    private $remoteBundle;
+
+    /**
      * @var \Bundle
      *
      * @ORM\ManyToOne(targetEntity="Bundle")
@@ -311,6 +318,29 @@ class Module
     public function getRemoteController()
     {
         return $this->remoteController;
+    }
+
+    /**
+     * Set remoteBundle
+     *
+     * @param string $remoteBundle
+     * @return Module
+     */
+    public function setRemoteBundle($remoteBundle)
+    {
+        $this->remoteBundle = $remoteBundle;
+    
+        return $this;
+    }
+
+    /**
+     * Get remoteBundle
+     *
+     * @return string 
+     */
+    public function getRemoteBundle()
+    {
+        return $this->remoteBundle;
     }
 
     /**

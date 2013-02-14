@@ -77,12 +77,42 @@ class ModuleController extends SessionController
 		$repo = $em->getRepository('NetonFrameworkBundle:Module');
 		
 		$entity = $repo->saveEntity($params);
-		$em->flush();
 		
+		// verifica se o bundle existe e está ativado
+		try{
+			$bundle = $this->get('kernel')->getBundle($entity->getRemoteBundle());						
+		} catch (\InvalidArgumentException $e){
+			return array(
+				'success' => false,
+				'error' => 1
+			);
+		}
+
+		// verifica se o controlador existe
+		if (!file_exists($bundle->getPath()."/Controller/".$entity->getRemoteController().".php")){
+			return array(
+				'success' => false,
+				'error' => 2
+			);
+		}	
+		
+		// se a entidade foi informada
+		if ($entity->getEntity() != ''){
+			// verifica se a entidade existe
+			if (!file_exists($bundle->getPath()."/Entity/".$entity->getEntity().".php")){
+				return array(
+					'success' => false,
+					'error' => 3
+				);
+			}				
+		}
+			
+		$em->flush();		
         $this->buildModule($entity);
 		
-		
-		return true;
+		return array(
+			'success' => true
+		);
 	} 
 	
 	/**

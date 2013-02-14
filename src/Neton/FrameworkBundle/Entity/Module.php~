@@ -85,6 +85,13 @@ class Module
     private $remoteController;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="remote_bundle", type="string", length=100, nullable=true)
+     */
+    private $remoteBundle;
+
+    /**
      * @var \Bundle
      *
      * @ORM\ManyToOne(targetEntity="Bundle")

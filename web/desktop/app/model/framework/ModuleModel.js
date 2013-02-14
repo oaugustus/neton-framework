@@ -15,6 +15,7 @@ Ext.define('App.model.framework.ModuleModel', {
         {name: 'bundle_name', type: 'string'},
         {name: 'remoteController', type: 'string'},
         {name: 'entity', type: 'string'},
+        {name: 'remoteBundle', type: 'string'},        
         {name: 'bundle',   type: 'int'},
         {name: 'enabled',  type: 'boolean'},
         {name: 'spacer',  type: 'boolean'},
