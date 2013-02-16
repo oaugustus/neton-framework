@@ -488,6 +488,19 @@ Ext.define('App.controller.bundle.framework.bundle.BundleController',{
     },
     
     /**
+     * Acionado ao pressionar Ctrl + F
+     */
+    onFindPress : function(){
+        var me = this,
+            tb = me.getGridToolbar();
+
+        if (me.card == 'list'){
+            tb.down('searchfield').focus(true);
+        }               
+    },
+    
+    
+    /**
      * Atualiza o histórico de navegação de acordo com o painel ativo.
      * 
      * @param {String} panel

@@ -167,7 +167,7 @@ Ext.application({
      * @param {Ext.form.Panel} form
      */
     registerKeyMap : function(form){
-        var save, esc, createNew,backspace, del;     
+        var save, esc, createNew,backspace, del, find;     
         
         // registra evento global para salvar formulário aberto ao pressionar Ctrl + S
         save = new Ext.util.KeyMap(Ext.getBody(), [{
@@ -229,7 +229,21 @@ Ext.application({
                    return true;
                return false;
            }
+        }]);
+        
+        // registra evento global para prevenir o carregamento da página anterior do navegador
+        find = new Ext.util.KeyMap(document, [{
+           key: Ext.EventObject.F,
+           ctrl: true,
+           defaultEventAction: 'preventDefault',
+           scope: this,
+           fn: function(){
+               try{
+                   this.activeModule.onFindPress();
+               } catch(e){}               
+           }
         }]);                                   
+
     
     }    
 
