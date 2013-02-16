@@ -62,11 +62,10 @@ Ext.define('App.view.bundle.framework.setting.SettingModule',{
                 }
            },
            nameColumnWidth: 350,
-           sourceConfig: this.getSourceConfig()/*,                   
+           sourceConfig: this.getSourceConfig(),                   
            source: {
-               "moduleContainerType": 'tabpanel',
-               'appName': 'NetonFramework Application'
-           }*/
+               "": ''
+           }
        }
 
     },

@@ -214,7 +214,7 @@ Ext.define('App.controller.bundle.framework.module.ModuleController',{
     },    
     
     onGridBeforeRender : function(grid){
-    	grid.reconfigure(new App.store.framework.ModuleStore(), grid.columns);
+    	//grid.reconfigure(new App.store.framework.ModuleStore(), grid.columns);
     },
     
     /**

@@ -187,14 +187,14 @@ Ext.define('App.controller.ui.UiController',{
     activateBundle : function(bundleName){
         var me = this, bundleCt = me.getBundleCt();
         		       
-        try{
+        //try{
             // armazena o nome do bundle ativo
             me.activeBundle = bundleName;
         	
             bundleCt.getLayout().setActiveItem(bundleName);            
-        }catch(e){
-            console.error('O bundle '+ bundleName+' não encontrado!');
-        }
+        //}catch(e){
+        //    console.error('O bundle '+ bundleName+' não encontrado!');
+        //}
         
     },
     
@@ -217,7 +217,7 @@ Ext.define('App.controller.ui.UiController',{
                 items.push(me.getBundleButton(bundle));
 
 
-                try{
+                //try{
                     // adiciona a toolbar de cada bundle ao container de bundles
                     bundleCt.add({
                         xtype: bundle.name,
@@ -230,9 +230,9 @@ Ext.define('App.controller.ui.UiController',{
                     if (bundle.isDefault){
                         me.activateBundle(bundle.name);
                     }
-                }catch(e){
-                    console.error('A classe ' + bundle.name + ' do bundle '+ bundle.title +' não foi carregada!');
-                }
+                //}catch(e){
+                    //console.error('A classe ' + bundle.name + ' do bundle '+ bundle.title +' não foi carregada!');
+                //}
             }            
             
             // adiciona o botão do bundle à toolbar de bundles

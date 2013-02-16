@@ -14,5 +14,5 @@ parameters:
     locale:            br
     secret:            NetonFramework
     
-    extjs_path:        ../../extjs-4.2.0
+    extjs_path:        ../../ext-4.1.1
     app_name:          NetonFramework Application

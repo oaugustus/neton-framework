@@ -221,14 +221,12 @@ Ext.define('Neton.framework.login.Viewport',{
                 xtype: 'container',                
                 items: [
                     {
-                        xtype: 'component',
-                        autoEl: {
-                            tag: 'a',
-                            tabindex: 6,
-                            href: me.registerUrl,
-                            cls: 'btn btn-danger btn-medium',
-                            html: me.registerText
-                        }
+                        xtype: 'button',
+                        baseCls: 'red-btn',
+                        text: me.registerText,
+                        tabIndex: 6,
+                        scale: 'medium',
+                        href: me.registerUrl
                     }
                 ]                
             });
@@ -248,7 +246,7 @@ Ext.define('Neton.framework.login.Viewport',{
                 xtype: 'toolbar', 
                 dock: 'bottom',
                 height: 70,
-                margin: '0 25 0 20 0',
+                //margin: '0 25 0 20 0',
                 items: []
             };
         
@@ -267,6 +265,7 @@ Ext.define('Neton.framework.login.Viewport',{
             tabIndex: 3,
             itemId: 'btnAccess',
             scale: 'large',
+            margin: '0 0 0 20',
             scope: me,
             handler: me.onAccessClick,
             text: me.accessText            
@@ -277,6 +276,7 @@ Ext.define('Neton.framework.login.Viewport',{
             buttons.items.push('->',{
                 xtype: 'checkbox',
                 tabIndex: 4,
+                margin: '0 29 0 0',
                 boxLabel: me.keepConnectionText                
             });
         }
@@ -327,6 +327,7 @@ Ext.define('Neton.framework.login.Viewport',{
                 vtype: me.usernameType == 'email' ? 'email' : 'alphanum',
                 allowBlank: false,
                 tabIndex: 1,
+                msgTarget: 'side',
                 enableKeyEvents: true,
                 name: me.usernameField,
                 margin: '0 0 10 0',
@@ -337,6 +338,7 @@ Ext.define('Neton.framework.login.Viewport',{
                 xtype: 'textfield',            
                 allowBlank: false,
                 tabIndex: 2,
+                msgTarget: 'side',
                 enableKeyEvents: true,
                 fieldLabel: me.passLabel,
                 name: me.passField,
