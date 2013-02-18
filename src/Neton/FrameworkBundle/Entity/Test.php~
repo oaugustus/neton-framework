@@ -1,0 +1,70 @@
+<?php
+
+namespace Neton\FrameworkBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Test
+ *
+ * @ORM\Table(name="test")
+ * @ORM\Entity(repositoryClass="Neton\FrameworkBundle\Repository\TestRepository")
+ */
+class Test
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="int_field", type="integer", nullable=true)
+     */
+    private $intField;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="float_field", type="decimal", nullable=true)
+     */
+    private $floatField;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="text_field", type="string", length=255, nullable=true)
+     */
+    private $textField;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="radio_field", type="string", length=1, nullable=true)
+     */
+    private $radioField;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="textarea_field", type="text", nullable=true)
+     */
+    private $textareaField;
+
+    /**
+     * @var \Test
+     *
+     * @ORM\ManyToOne(targetEntity="Test")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="test_id", referencedColumnName="id")
+     * })
+     */
+    private $test;
+
+
+}

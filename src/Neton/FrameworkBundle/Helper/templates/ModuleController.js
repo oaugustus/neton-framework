@@ -400,7 +400,19 @@ Ext.define('App.controller.bundle.[bundle].[module].[Module]Controller',{
         if (me.card == 'list'){
             me.onNewClick(tb.down('#btnNew'));
         }               
-    }
+    },
+    
+    /**
+     * Acionado ao pressionar Ctrl + F
+     */
+    onFindPress : function(){
+        var me = this,
+            tb = me.getGridToolbar();
+
+        if (me.card == 'list'){
+            tb.down('searchfield').focus(true);
+        }               
+    }        
         
 })
 

@@ -123,7 +123,7 @@ class ModuleController extends SessionController
 	private function buildModule($module)
 	{
         // cria o helper de bundles
-        $helper = new ModuleHelper($this->get('kernel'), $module);        
+        $helper = new ModuleHelper($this->get('kernel'), $this->getDoctrine()->getManager(), $module);        
                 
         // se os arquivos do bundle não existirem
         if (!$helper->moduleExists()){

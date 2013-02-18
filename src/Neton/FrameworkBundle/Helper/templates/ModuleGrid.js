@@ -20,10 +20,10 @@ Ext.define('App.view.bundle.[bundle].[module].[Module]Grid',{
                 allowDeselect: true,
                 mode: 'SIMPLE'
             });
-            store = new App.store.[bundle].[Module]Store()            
+            //store = new App.store.[bundle].[Module]Store()            
                     
         Ext.applyIf(me,{
-            store: store,
+            //store: store,
             cls: 'neton-grid',
             selModel: sm,
             features: [

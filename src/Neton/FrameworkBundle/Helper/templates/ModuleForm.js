@@ -25,12 +25,7 @@ Ext.define('App.view.bundle.[bundle].[module].[Module]Form',{
                 xtype: 'netuihelpcmdtoolbar'
             },
     		items: [
-                {
-                	// reservado para o campo id
-                    xtype: 'hidden',
-                    name: 'id'
-                },
-                /*<FIELDS/>*/
+/*<FIELDS/>*/
     		]
     	});
     	

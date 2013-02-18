@@ -17,6 +17,13 @@ class ModuleHelper
      * @var \AppKernel
      */
     private $kernel;
+	
+    /**
+     * Referência ao gerenciador de entidades
+     * 
+     * @var \EntityManager
+     */
+    private $em;	
     
     /**
      * Referência ao diretório web.
@@ -58,11 +65,13 @@ class ModuleHelper
      * Constrói o helper do módulo.
      * 
      * @param \AppKernel $kernel
+	 * @param \EntityManager $em
      * @param \Neton\FrameworkBundle\Entity\Module $module
      */
-    public function __construct($kernel, $module)
+    public function __construct($kernel, $em, $module)
     {
         $this->kernel = $kernel;
+		$this->em = $em;
         $this->bundle = str_replace('bundle','',$module->getBundle()->getName());
 		$this->module = str_replace('module','',$module->getName());        
         $this->title = $module->getTitle();
@@ -226,6 +235,8 @@ class ModuleHelper
         // pega o arquivo de template de módulos
         $view = $this->replaceKeys($keys, file_get_contents(__DIR__.'/templates/ModuleForm.js'));
                 
+		$view = str_replace('/*<FIELDS/>*/', $this->getFields(), $view);
+		
         // define o nome do arquivo js
         $filename = $this->viewDir.'/'.ucfirst($this->module).'Form.js';
         
@@ -335,5 +346,254 @@ class ModuleHelper
         // sobrescreve o arquivo da aplicação com a nova lista de controladores
         file_put_contents($appfile, $app);
     }
+
+	/**
+	 * Recupera a definição JSON dos campos do formulário.
+	 * 
+	 * @return String
+	 */
+	private function getFields()
+	{
+		$bundle = $this->kernel->getBundle($this->entity->getRemoteBundle());
+		$entityName = $bundle->getNamespace().'\\Entity\\'.$this->entity->getEntity();
+		$fields = array();
+		
+		// recupera os metadados da entidade
+        $metadata = $this->em->getClassMetadata($entityName);
+		
+		foreach ($metadata->getReflectionProperties() as $property){
+			
+			if ($metadata->hasField($property->name)){
+				$field = $metadata->getFieldMapping($property->name);
+				
+				if (isset($field['id'])){					
+					$fields[] = $this->getHiddenField($field);
+				} else {
+					if ($field['type'] == 'string'){
+						if ($field['length'] == 1){
+							$fields[] = $this->getRadioField($field);
+						} else {
+							$fields[] = $this->getTextField($field);
+						}
+					}else
+					if ($field['type'] == 'text'){
+						$fields[] = $this->getTextareaField($field);
+					} else 
+					if ($field['type'] == 'integer'){
+						$fields[] = $this->getIntegerField($field);
+					} else 
+					if ($field['type'] == 'decimal'){
+						$fields[] = $this->getFloatField($field);
+					}
+					
+				}	
+				
+				
+			} else {
+				$field = $metadata->getAssociationMapping($property->name);
+				
+				if ($field['isOwningSide']){
+					$fields[] = $this->getComboField($field);
+				}				 
+			}
+			
+		}
+		
+		return implode(",\n", $fields);
+	}
+	
+	/**
+	 * Recupera a definição de um campo hidden.
+	 * 
+	 * @param Array $property
+	 * @return String
+	 */
+	private function getHiddenField($property)
+	{
+		$field = array(
+			'xtype' => 'hidden',
+			'name' => $property['fieldName']
+		);
+		
+		return $this->getFieldDefinition($field);
+	}
+	
+	/**
+	 * Recupera a definição de um campo textfield.
+	 * 
+	 * @param Array $property
+	 * @return String
+	 */
+	private function getTextField($property)
+	{
+		$field = array(
+			'xtype' => 'textfield',
+			'width' => 400,
+			'labelAlign' => 'top',
+			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
+			'name' => $property['fieldName']
+		);
+		
+		return $this->wrapField($this->getFieldDefinition($field));
+	}
+	
+	/**
+	 * Recupera a definição de um campo textarea.
+	 * 
+	 * @param Array $property
+	 * @return String
+	 */
+	private function getTextareaField($property)
+	{
+		$field = array(
+			'xtype' => 'textarea',
+			'width' => 400,
+			'height' => 100,
+			'labelAlign' => 'top',
+			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
+			'name' => $property['fieldName']
+		);
+		
+		return $this->wrapField($this->getFieldDefinition($field));
+	}
+	
+	/**
+	 * Recupera a definição de um campo integer.
+	 * 
+	 * @param Array $property
+	 * @return String
+	 */
+	private function getIntegerField($property)
+	{
+		$field = array(
+			'xtype' => 'numberfield',
+			'width' => 200,
+			'allowDecimals' => false,
+			'labelAlign' => 'top',
+			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
+			'name' => $property['fieldName']
+		);
+		
+		return $this->wrapField($this->getFieldDefinition($field));
+	}
+
+	/**
+	 * Recupera a definição de um campo float.
+	 * 
+	 * @param Array $property
+	 * @return String
+	 */
+	private function getFloatField($property)
+	{
+		$field = array(
+			'xtype' => 'numberfield',
+			'width' => 200,
+			'hideTrigger' => true,
+			'labelAlign' => 'top',
+			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
+			'name' => $property['fieldName']
+		);
+		
+		return $this->wrapField($this->getFieldDefinition($field));
+	}	
+	
+	
+	/**
+	 * Recupera a definição do campo ComboBox.
+	 * 
+	 * @param Array $property
+	 * @return String
+	 */
+	private function getComboField($property)
+	{
+		$field = array(
+			'xtype' => 'netoncombo',
+			'width' => 400,
+			'labelAlign' => 'top',
+			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
+			'name' => $property['fieldName'],
+			'displayField' => 'id',			
+			'valueField' => 'id'
+		);
+		
+		return $this->wrapField($this->getFieldDefinition($field));
+	}	
+	
+	/**
+	 * Recupera a definição de um campo radio.
+	 * 
+	 * @param Array $property
+	 * @return String
+	 */
+	private function getRadioField($property)
+	{
+		$field = array(
+			'xtype' => 'radiogroup',
+            'columns' => 2,
+            'labelAlign' => 'top',
+            'width' => 150,			
+			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
+			'items' => 727
+		);
+		
+		$radio = "[\n";
+		$radio.= sprintf("\t\t\t\t\t\t\t\t{name: '%s', boxLabel: 'Sim', inputValue: '1', checked: true},\n", $property['fieldName']);
+		$radio.= sprintf("\t\t\t\t\t\t\t\t{name: '%s', boxLabel: 'Não', inputValue: '0'}\n", $property['fieldName']);
+		$radio.= "\t\t\t\t\t\t\t]\n";
+		
+		$field = $this->wrapField($this->getFieldDefinition($field));
+		$field = str_replace('727', $radio, $field);
+		
+		return $field;		
+	}	
+		
+	
+	/**
+	 * Recupera a definição textual (JSON) do campo.
+	 * 
+	 * @param array $properties
+	 * @return String
+	 */
+	private function getFieldDefinition($properties)
+	{
+		
+		$strField = "\t\t\t\t\t\t{";
+		$list = array();
+		
+		// cria a definição do campo
+		foreach ($properties as $key => $value){
+			if (is_numeric($value)){
+				$list[] = sprintf("\t\t\t\t\t\t\t%s: %d", $key, $value);
+			} else {
+				$list[] = sprintf("\t\t\t\t\t\t\t%s: '%s'", $key, $value);	
+			}			
+		}
+		
+		$strField.= "\n".implode(",\n", $list);
+		$strField.= "\n\t\t\t\t\t\t}";
+				
+		return $strField;		
+	}
+	
+	/**
+	 * Encapsula o campo em um container de campos.
+	 * 
+	 * @param String $field
+	 * @return String
+	 */
+	private function wrapField($field)
+	{
+		$wrapper = "\t\t\t\t{\n";
+		$wrapper.= "\t\t\t\t\txtype: 'container',\n";
+		$wrapper.= "\t\t\t\t\tcls: 'n-field-ct',\n";
+		$wrapper.= "\t\t\t\t\titems: [\n";
+
+		$wrapper.= $field;
+		$wrapper.= "\n\t\t\t\t\t]";
+		$wrapper.= "\n\t\t\t\t}";
+		
+		
+		return $wrapper;
+	}
     
 }

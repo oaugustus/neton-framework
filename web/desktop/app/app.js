@@ -25,6 +25,10 @@ Ext.application({
         ,'bundle.framework.setting.SettingController'
         ,'bundle.setting.SettingController'
         ,'bundle.setting.teste.TesteController'
+        ,'bundle.setting.teste.TesteController'
+        ,'bundle.setting.teste.TesteController'
+        ,'bundle.setting.teste.TesteController'
+        ,'bundle.setting.teste.TesteController'
         ,'bundle.setting.usergroup.UserGroupController'
         /*</CONTROLLERS>*/
     ],
