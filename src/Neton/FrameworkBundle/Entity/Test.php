@@ -24,21 +24,28 @@ class Test
     /**
      * @var integer
      *
-     * @ORM\Column(name="int_field", type="integer", nullable=true)
+     * @ORM\Column(name="int_field", type="integer", nullable=false)
      */
     private $intField;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="float_field", type="decimal", nullable=true)
+     * @ORM\Column(name="money_field", type="decimal", nullable=true)
+     */
+    private $moneyField;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="float_field", type="float", nullable=true)
      */
     private $floatField;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="text_field", type="string", length=255, nullable=true)
+     * @ORM\Column(name="text_field", type="string", length=255, nullable=false)
      */
     private $textField;
 
@@ -55,6 +62,20 @@ class Test
      * @ORM\Column(name="textarea_field", type="text", nullable=true)
      */
     private $textareaField;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="time_field", type="time", nullable=true)
+     */
+    private $timeField;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_field", type="date", nullable=true)
+     */
+    private $dateField;
 
     /**
      * @var \Test
@@ -99,6 +120,29 @@ class Test
     public function getIntField()
     {
         return $this->intField;
+    }
+
+    /**
+     * Set moneyField
+     *
+     * @param float $moneyField
+     * @return Test
+     */
+    public function setMoneyField($moneyField)
+    {
+        $this->moneyField = $moneyField;
+    
+        return $this;
+    }
+
+    /**
+     * Get moneyField
+     *
+     * @return float 
+     */
+    public function getMoneyField()
+    {
+        return $this->moneyField;
     }
 
     /**
@@ -191,6 +235,52 @@ class Test
     public function getTextareaField()
     {
         return $this->textareaField;
+    }
+
+    /**
+     * Set timeField
+     *
+     * @param \DateTime $timeField
+     * @return Test
+     */
+    public function setTimeField($timeField)
+    {
+        $this->timeField = $timeField;
+    
+        return $this;
+    }
+
+    /**
+     * Get timeField
+     *
+     * @return \DateTime 
+     */
+    public function getTimeField()
+    {
+        return $this->timeField;
+    }
+
+    /**
+     * Set dateField
+     *
+     * @param \DateTime $dateField
+     * @return Test
+     */
+    public function setDateField($dateField)
+    {
+        $this->dateField = $dateField;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateField
+     *
+     * @return \DateTime 
+     */
+    public function getDateField()
+    {
+        return $this->dateField;
     }
 
     /**

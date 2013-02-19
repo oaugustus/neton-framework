@@ -361,6 +361,8 @@ class ModuleHelper
 		// recupera os metadados da entidade
         $metadata = $this->em->getClassMetadata($entityName);
 		
+		//print_r($metadata);
+		
 		foreach ($metadata->getReflectionProperties() as $property){
 			
 			if ($metadata->hasField($property->name)){
@@ -383,7 +385,16 @@ class ModuleHelper
 						$fields[] = $this->getIntegerField($field);
 					} else 
 					if ($field['type'] == 'decimal'){
+						$fields[] = $this->getMoneyField($field);
+					} else
+					if ($field['type'] == 'float'){
 						$fields[] = $this->getFloatField($field);
+					} else 						 
+					if ($field['type'] == 'datetime' || $field['type'] == 'date'){
+						$fields[] = $this->getDateField($field);
+					} else 
+					if ($field['type'] == 'time'){
+						$fields[] = $this->getTimeField($field);
 					}
 					
 				}	
@@ -430,6 +441,9 @@ class ModuleHelper
 			'xtype' => 'textfield',
 			'width' => 400,
 			'labelAlign' => 'top',
+			'msgTarget' => 'side',
+			'allowBlank' => (boolean)$property['nullable'],
+			'afterLabelTextTpl' => ($property['nullable'] == false) ? 'App.requiredField' : '',
 			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
 			'name' => $property['fieldName']
 		);
@@ -450,12 +464,57 @@ class ModuleHelper
 			'width' => 400,
 			'height' => 100,
 			'labelAlign' => 'top',
+			'msgTarget' => 'side',
+			'allowBlank' => $property['nullable'],
+			'afterLabelTextTpl' => ($property['nullable'] == false) ? 'App.requiredField' : '',
 			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
 			'name' => $property['fieldName']
 		);
 		
 		return $this->wrapField($this->getFieldDefinition($field));
 	}
+	
+	/**
+	 * Recupera a definição de um campo datefield.
+	 * 
+	 * @param Array $property
+	 * @return String
+	 */
+	private function getDateField($property)
+	{
+		$field = array(
+			'xtype' => 'datefield',
+			'labelAlign' => 'top',
+			'msgTarget' => 'side',
+			'allowBlank' => (boolean)$property['nullable'],
+			'afterLabelTextTpl' => ($property['nullable'] == false) ? 'App.requiredField' : '',
+			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
+			'name' => $property['fieldName']
+		);
+		
+		return $this->wrapField($this->getFieldDefinition($field));
+	}
+	
+	/**
+	 * Recupera a definição de um campo timefield.
+	 * 
+	 * @param Array $property
+	 * @return String
+	 */
+	private function getTimeField($property)
+	{
+		$field = array(
+			'xtype' => 'timefield',
+			'labelAlign' => 'top',
+			'msgTarget' => 'side',
+			'allowBlank' => (boolean)$property['nullable'],
+			'afterLabelTextTpl' => ($property['nullable'] == false) ? 'App.requiredField' : '',
+			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
+			'name' => $property['fieldName']
+		);
+		
+		return $this->wrapField($this->getFieldDefinition($field));
+	}	
 	
 	/**
 	 * Recupera a definição de um campo integer.
@@ -470,6 +529,9 @@ class ModuleHelper
 			'width' => 200,
 			'allowDecimals' => false,
 			'labelAlign' => 'top',
+			'msgTarget' => 'side',
+			'allowBlank' => ($property['nullable'] == true) ? true : false,
+			'afterLabelTextTpl' => ($property['nullable'] == false) ? 'App.requiredField' : '',
 			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
 			'name' => $property['fieldName']
 		);
@@ -490,6 +552,9 @@ class ModuleHelper
 			'width' => 200,
 			'hideTrigger' => true,
 			'labelAlign' => 'top',
+			'msgTarget' => 'side',
+			'allowBlank' => ($property['nullable'] == true) ? true : false,
+			'afterLabelTextTpl' => ($property['nullable'] == false) ? 'App.requiredField' : '',
 			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
 			'name' => $property['fieldName']
 		);
@@ -497,6 +562,27 @@ class ModuleHelper
 		return $this->wrapField($this->getFieldDefinition($field));
 	}	
 	
+	/**
+	 * Recupera a definição de um campo float.
+	 * 
+	 * @param Array $property
+	 * @return String
+	 */
+	private function getMoneyField($property)
+	{
+		$field = array(
+			'xtype' => 'moneyfield',
+			'width' => 200,
+			'labelAlign' => 'top',
+			'msgTarget' => 'side',
+			'allowBlank' => ($property['nullable'] == true) ? true : false,
+			'afterLabelTextTpl' => ($property['nullable'] == false) ? 'App.requiredField' : '',
+			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
+			'name' => $property['fieldName']
+		);
+		
+		return $this->wrapField($this->getFieldDefinition($field));
+	}	
 	
 	/**
 	 * Recupera a definição do campo ComboBox.
@@ -506,17 +592,26 @@ class ModuleHelper
 	 */
 	private function getComboField($property)
 	{
+		$nullable = $property['joinColumns'][0]['nullable'];
 		$field = array(
 			'xtype' => 'netoncombo',
 			'width' => 400,
 			'labelAlign' => 'top',
+			'msgTarget' => 'side',
+			'plugins' => 727,
+			'allowBlank' => (boolean)$nullable,
+			'afterLabelTextTpl' => ($nullable == false) ? 'App.requiredField' : '',
 			'fieldLabel' => '<b>'.ucfirst($property['fieldName']).'</b>',
 			'name' => $property['fieldName'],
 			'displayField' => 'id',			
 			'valueField' => 'id'
 		);
 		
-		return $this->wrapField($this->getFieldDefinition($field));
+		$combo = $this->wrapField($this->getFieldDefinition($field));
+		
+		$combo = str_replace('727','["clearbutton"]', $combo);
+		
+		return $combo;
 	}	
 	
 	/**
@@ -564,6 +659,9 @@ class ModuleHelper
 		foreach ($properties as $key => $value){
 			if (is_numeric($value)){
 				$list[] = sprintf("\t\t\t\t\t\t\t%s: %d", $key, $value);
+			}
+			else if (is_bool($value)){
+				$list[] = sprintf("\t\t\t\t\t\t\t%s: %s", $key, ($value == true) ? 'true' : 'false');
 			} else {
 				$list[] = sprintf("\t\t\t\t\t\t\t%s: '%s'", $key, $value);	
 			}			
@@ -583,6 +681,8 @@ class ModuleHelper
 	 */
 	private function wrapField($field)
 	{
+		$field = str_replace("'App.requiredField'", "App.requiredField", $field);
+		
 		$wrapper = "\t\t\t\t{\n";
 		$wrapper.= "\t\t\t\t\txtype: 'container',\n";
 		$wrapper.= "\t\t\t\t\tcls: 'n-field-ct',\n";

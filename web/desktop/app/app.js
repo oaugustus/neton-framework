@@ -10,6 +10,8 @@ Ext.application({
         'Neton.window.Flash',
         'Neton.button.Button',
         'Neton.form.ComboBox',
+        'Neton.form.ClearButton',
+        'Neton.form.MoneyField',
         'Ext.ux.grid.FiltersFeature',
         'Ext.ux.form.SearchField'
     ],
@@ -24,9 +26,6 @@ Ext.application({
         ,'bundle.framework.module.ModuleController'
         ,'bundle.framework.setting.SettingController'
         ,'bundle.setting.SettingController'
-        ,'bundle.setting.teste.TesteController'
-        ,'bundle.setting.teste.TesteController'
-        ,'bundle.setting.teste.TesteController'
         ,'bundle.setting.teste.TesteController'
         ,'bundle.setting.teste.TesteController'
         ,'bundle.setting.usergroup.UserGroupController'
@@ -73,6 +72,9 @@ Ext.application({
                 // carrega as configurações do framework
                 Actions.NetonFramework_Setting.list({}, function(r){   
                     Ext.apply(me.settings, r);
+                    
+                    // define o marcador de obrigatoriedade de campos
+                    App.requiredField = '<span style="color:red;font-weight:bold" data-qtip="Obrigatório">*</span>'
                     
                     // cria e renderiza a interface do sistema
                     var a = Ext.create('Neton.framework.ui.Viewport', {
