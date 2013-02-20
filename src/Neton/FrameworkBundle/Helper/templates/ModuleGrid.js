@@ -31,7 +31,7 @@ Ext.define('App.view.bundle.[bundle].[module].[Module]Grid',{
             	}
             ],
             columns: [
-            	/*<COLUMNS/>*/
+/*<COLUMNS/>*/
             ],
             dockedItems: [{
                 xtype: 'pagingtoolbar',

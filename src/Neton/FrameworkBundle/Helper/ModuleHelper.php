@@ -184,6 +184,9 @@ class ModuleHelper
         // pega o arquivo de template de módulos
         $view = $this->replaceKeys($keys, file_get_contents(__DIR__.'/templates/ModuleGrid.js'));
                 
+		// substitui as colunas do template
+		$view = str_replace('/*<COLUMNS/>*/', $this->getColumns(), $view);
+				
         // define o nome do arquivo js
         $filename = $this->viewDir.'/'.ucfirst($this->module).'Grid.js';
         
@@ -361,8 +364,6 @@ class ModuleHelper
 		// recupera os metadados da entidade
         $metadata = $this->em->getClassMetadata($entityName);
 		
-		//print_r($metadata);
-		
 		foreach ($metadata->getReflectionProperties() as $property){
 			
 			if ($metadata->hasField($property->name)){
@@ -412,6 +413,43 @@ class ModuleHelper
 		
 		return implode(",\n", $fields);
 	}
+
+	/**
+	 * Recupera a definição JSON das colunas do grid.
+	 * 
+	 * @return String
+	 */
+	private function getColumns()
+	{
+		$bundle = $this->kernel->getBundle($this->entity->getRemoteBundle());
+		$entityName = $bundle->getNamespace().'\\Entity\\'.$this->entity->getEntity();
+		$columns = array();
+		
+		// recupera os metadados da entidade
+        $metadata = $this->em->getClassMetadata($entityName);
+		
+		foreach ($metadata->getReflectionProperties() as $property){
+			
+			if ($metadata->hasField($property->name)){
+				$field = $metadata->getFieldMapping($property->name);
+				
+				if (!isset($field['id'])){													
+					$columns[] = $this->getColumnDefinition($field);					
+				}	
+				
+				
+			} else {
+				$field = $metadata->getAssociationMapping($property->name);
+				
+				if ($field['isOwningSide']){
+					$columns[] = $this->getColumnDefinition($field);
+				}				 
+			}
+			
+		}
+		
+		return implode(",\n", $columns);
+	}
 	
 	/**
 	 * Recupera a definição de um campo hidden.
@@ -437,7 +475,7 @@ class ModuleHelper
 	 */
 	private function getTextField($property)
 	{
-		$field = array(
+		$field = array (
 			'xtype' => 'textfield',
 			'width' => 400,
 			'labelAlign' => 'top',
@@ -642,6 +680,51 @@ class ModuleHelper
 		return $field;		
 	}	
 		
+	
+	/**
+	 * Recupera a definição da coluna.
+	 * 
+	 * @param Array $property
+	 * @return String
+	 */
+	private function getColumnDefinition($property)
+	{
+		//@todo remover isso
+		if (!isset($property['type'])){
+			$property['type'] = 'string';
+			$property['length'] = 2;
+		}
+		
+		$type = 'string';
+		
+		if ($property['type'] == 'string'){
+			if ($property['length'] == 1){
+				$type = 'boolean';		
+			} else {
+				$type = 'string';
+			} 			
+		} else 
+		if ($property['type'] == 'float' ||  $property['type'] == 'integer' || $property['type'] == 'decimal'){
+			$type = 'numeric';
+		} else 
+		if ($property['type'] == 'date' || $property['type'] == 'datetime'){
+			$type = 'date';
+		} else 
+		if ($property['type'] == 'time'){
+			$type = 'string';
+		}
+		
+		$strCol = "\t\t\t\t{\n";
+		$strCol.= "\t\t\t\t\theader: '".ucfirst($property['fieldName'])."',\n";		
+		$strCol.= "\t\t\t\t\tdataIndex: '".$property['fieldName']."',\n";
+		$strCol.= "\t\t\t\t\tflex: 1,\n";		
+		$strCol.= "\t\t\t\t\tfilter: {\n";
+		$strCol.= "\t\t\t\t\t\ttype: '".$type."'\n";				
+		$strCol.= "\t\t\t\t\t}\n";						
+		$strCol.= "\t\t\t\t}";
+				
+		return $strCol;		
+	}
 	
 	/**
 	 * Recupera a definição textual (JSON) do campo.
